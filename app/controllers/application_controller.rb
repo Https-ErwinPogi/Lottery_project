@@ -3,11 +3,11 @@ class ApplicationController < ActionController::Base
     after_sign_in_path_for(resource) if is_navigational_format?
   end
 
-  def after_sign_in_path_for(resource)
-    if current_user.admin?
-      admin_users_path
-    else
-      client_users_path
-    end
-  end
+  # def after_sign_in_path_for(resource)
+  #   if current_user.admin?
+  #     admin_users_path
+  #   else
+  #     clients_home_index_path
+  #   end
+  # end
 end
