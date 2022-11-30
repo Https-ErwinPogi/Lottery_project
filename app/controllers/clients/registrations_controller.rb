@@ -23,7 +23,7 @@ class Clients::RegistrationsController < Devise::RegistrationsController
   # PUT /resource
   def update
     # super
-    if @user.update(params.require(:user).permit(:username, :phone, :image))
+    if @user.update(params.require(:user).permit(:username, :phone, :image, :password, :password_confirmation))
       redirect_to clients_profiles_path
     else
       render :edit
