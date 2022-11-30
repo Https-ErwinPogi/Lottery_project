@@ -1,5 +1,5 @@
 class Clients::ProfilesController < ApplicationController
   def index
-    @user = User.all
+    @user = current_user
   end
 end

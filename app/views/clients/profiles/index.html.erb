@@ -1,3 +1,21 @@
-<div class="container">
-  <p>Username: <%= current_user.email %></p>
+<%= render 'layouts/client_header_form' %>
+<div class="container card mt-5">
+  <div class="card-body p-4">
+    <div class="text-center">
+      <%= image_tag @user.image.url, class:"rounded-circle" if @user.image? %>
+    </div>
+    <p>Username: <%= @user.username %></p>
+    <p>Email: <%= @user.email %></p>
+    <p>Coins: <%= @user.coins %></p>
+    <div class="text-center">
+      <%= link_to 'Cash in Now', "#", class: "btn btn-outline-dark w-100" %>
+      <ul class="nav nav-pills nav-justified mt-3 mb-3 hstack gap-3">
+        <li class="nav-item"><%= link_to 'Edit Profile', edit_user_registration_path, class: "btn btn-outline-dark w-100" %>
+        </li>
+        <li class="nav-item"><%= link_to 'Address', "#", class: "btn btn-outline-dark w-100" %>
+        </li>
+      </ul>
+    </div>
+  </div>
 </div>
+<%= render 'layouts/client_footer_form' %>
