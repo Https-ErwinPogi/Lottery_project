@@ -18,7 +18,7 @@ Rails.application.routes.draw do
     namespace :clients, path: '' do
       root to: "home#index"
       resources :home
-      resources :profile
+      resources :profiles
     end
   end
 end
