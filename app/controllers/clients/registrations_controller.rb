@@ -16,19 +16,12 @@ class Clients::RegistrationsController < Devise::RegistrationsController
 
   # GET /resource/edit
   def edit
-    @user = current_user
-    # super
+    super
   end
 
   # PUT /resource
   def update
-    # super
-    if @user.update(params.require(:user).permit(:username, :phone, :image, :password, :password_confirmation))
-      redirect_to clients_profiles_path
-    else
-      render :edit
-    end
-
+    super
   end
 
   # DELETE /resource
