@@ -13,7 +13,7 @@
       </li>
     </ul>
     <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name), class: "px-4 py-3") do |f| %>
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }, class: "px-4 py-3") do |f| %>
         <div class="mb-3">
           <%= f.label :email, class: "form-label" %><br/>
           <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "email@example.com" %>
