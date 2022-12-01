@@ -10,7 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_01_025309) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_01_102829) do
+  create_table "address_barangays", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.bigint "city_municipality_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["city_municipality_id"], name: "index_address_barangays_on_city_municipality_id"
+  end
+
+  create_table "address_city_municipalities", charset: "utf8mb4", force: :cascade do |t|
+    t.string "name"
+    t.string "code"
+    t.bigint "province_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["province_id"], name: "index_address_city_municipalities_on_province_id"
+  end
+
   create_table "address_provinces", charset: "utf8mb4", force: :cascade do |t|
     t.string "name"
     t.string "code"
