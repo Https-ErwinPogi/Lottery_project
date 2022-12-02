@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       root to: "home#index"
       resources :home
       resources :profiles
+      resources :addresses
     end
   end
 

@@ -1,0 +1,78 @@
+<%= form_with model: address, url: path, data: { turbo: false, controller: :location } do |form| %>
+  <div class="container mt-5">
+    <h1>Add New Address</h1>
+    <div class="card bg-light">
+      <% if @address.errors.any? %>
+        <ul class="list-unstyled text-center">
+          <% @address.errors.each do |error| %>
+            <li class="text-danger"><%= error.full_message %></li>
+          <% end %>
+        </ul>
+      <% end %>
+      <div class="card-body">
+        <ul class="nav nav-pills nav-justified mt-3 mb-3 text-start">
+          <li class="nav-item text-start mx-2">
+            <div class="mb-3">
+              <%= form.label :name %>
+              <%= form.text_field :name, class: "form-control", placeholder: 'Enter your name' %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label 'Mobile Number' %>
+              <%= form.text_field :phone, class: "form-control", maxlength: 13, placeholder: 'Please enter your mobile number' %>
+            </div>
+
+            <div>
+              <%= form.label 'Other Notes' %>
+              <%= form.text_field :remark, class:"form-control", placeholder: 'Please enter your notes' %>
+            </div>
+          </li>
+          <li class="nav-item text-start mx-2">
+            <div class="mb-3">
+              <%= form.label 'House/Unit/Flr #, Bldg Name, Blk or Lot #, and Street Address' %>
+              <%= form.text_field :street_address, class: "form-control", placeholder: 'Please enter your complete exact address' %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :address_region_id %>
+              <%= form.collection_select :address_region_id,
+                                         Address::Region.all, :id, :name,
+                                         { prompt: 'Select Region' },
+                                         data: { location_target: 'selectedRegionId', action: 'change->location#fetchProvinces' }, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :address_province_id %>
+              <%= form.collection_select :address_province_id, [], nil, nil, { prompt: 'Select Province/District' }, data: { location_target: 'selectProvinceId', action: 'change->location#fetchCityMunicipality' }, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :address_city_municipality_id %>
+              <%= form.collection_select :address_city_municipality_id, [], nil, nil, { prompt: 'Select City/Municipality' }, data: { location_target: 'selectCityMunicipalityId', action: 'change->location#fetchBarangays' }, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= form.label :address_barangay_id %>
+              <%= form.collection_select :address_barangay_id, [], nil, nil, { prompt: 'Select Barangay' }, data: { location_target: 'selectBarangayId' }, class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <p>Select a label for effective delivery:</p>
+              <% Address.genres.keys.each do |genre| %>
+                <span style="margin-right: 10px">
+                <%= form.radio_button :genre, genre %>
+                  <%= form.label genre.to_sym %>
+                </span>
+              <% end %>
+            </div>
+          </li>
+        </ul>
+
+        <div class="mt-3 text-center">
+          <%= form.submit 'Save', class: "btn btn-success w-25" %>
+          <%= link_to 'Cancel', clients_addresses_path, class: "btn btn-secondary w-25" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>
