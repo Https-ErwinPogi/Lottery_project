@@ -21,7 +21,39 @@ class Clients::RegistrationsController < Devise::RegistrationsController
 
   # PUT /resource
   def update
-    super
+    parameter = params[:user]
+    if parameter[:password]&.present? || parameter[:password_confirmation]&.present? || parameter[:current_password]&.present?
+      update_password
+    else
+      user_update
+    end
+  end
+
+  protected
+
+  def user_update
+    if params[:user][:current_password].blank?
+      resource.update_without_password(user_params.except(:current_password))
+      redirect_to clients_profiles_path
+    else
+      render :edit
+    end
+  end
+
+  def update_password
+    if resource.update_with_password(user_password_params)
+      redirect_to clients_profiles_path
+    else
+      render :edit
+    end
+  end
+
+  def user_params
+    params.require(:user).permit(:phone, :username, :image, :password, :password_confirmation, :current_password)
+  end
+
+  def user_password_params
+    params.require(:user).permit(:phone, :username, :image, :password, :password_confirmation, :current_password)
   end
 
   # DELETE /resource

@@ -1,13 +1,12 @@
 <%= render 'layouts/client_header_form' %>
-<div class="container card mt-5">
+<div class="container card mt-5 mb-5">
   <div class="card-body p-5">
-    <%= link_to "Back", :back %>
     <h2 class="text-center">Edit Profile</h2>
-    <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }, data: { turbo: false }) do |f| %>
+    <%= form_for(resource, as: resource_name, url: user_registration_path, html: { method: :put }, data: { turbo: false }) do |f| %>
       <%= render "clients/shared/error_messages", resource: resource %>
 
       <div class="field mb-3">
-        <%= f.label :image %>
+        <%= f.label 'Upload/Change Profile' %>
         <%= f.file_field :image, class: "form-control" %>
       </div>
 
@@ -21,33 +20,47 @@
         <%= f.text_field :phone, autofocus: true, class: "form-control", autocomplete: "phone", maxlength: 13 %>
       </div>
 
-      <div class="field mb-3">
-        <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br/>
-        <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
-        <% if @minimum_password_length %>
-          <br/>
-          <em><%= @minimum_password_length %> characters minimum</em>
-        <% end %>
-      </div>
+      <div class="accordion" id="accordionFlushExample">
+        <div class="accordion-item">
+          <h2 class="accordion-header" id="flush-headingOne">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+              Change your password?
+            </button>
+          </h2>
+          <div id="flush-collapseOne" class="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+            <div class="accordion-body">
+              <div class="field mb-3">
+                <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br/>
+                <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
+              </div>
 
-      <div class="field mb-3">
-        <%= f.label :password_confirmation %><br/>
-        <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
-      </div>
+              <div class="field">
+                <%= f.label 'New Password' %> <i>(leave blank if you don't want to change it)</i><br/>
+                <%= f.password_field :password, autocomplete: "new-password", class: "form-control" %>
+                <% if @minimum_password_length %>
+                  <br/>
+                  <em><%= @minimum_password_length %> characters minimum</em>
+                <% end %>
+              </div>
 
-      <div class="field mb-3">
-        <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br/>
-        <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control" %>
-      </div>
+              <div class="field mb-3">
+                <%= f.label :password_confirmation %><br/>
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control" %>
+              </div>
+            </div>
+          </div>
+        </div>
 
-      <div class="actions text-center">
-        <%= f.submit "Update", class: "btn btn-dark w-50" %>
-      </div>
+
+        <div class="actions text-center mt-5">
+          <%= f.submit "Update", class: "btn btn-dark w-25" %>
+          <%= link_to "Cancel", clients_profiles_path, class: 'btn btn-outline-dark w-25' %>
+        </div>
     <% end %>
 
     <!--<h3>Cancel my account</h3>-->
 
     <!--<p>Unhappy? <%#= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %></p>-->
+    </div>
   </div>
-</div>
 <%= render 'layouts/client_footer_form' %>
