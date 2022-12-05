@@ -22,9 +22,16 @@
               <%= form.text_field :phone, class: "form-control", maxlength: 13, placeholder: 'Please enter your mobile number' %>
             </div>
 
-            <div>
+            <div class="mb-3">
               <%= form.label 'Other Notes' %>
-              <%= form.text_field :remark, class:"form-control", placeholder: 'Please enter your notes' %>
+              <%= form.text_field :remark, class: "form-control", placeholder: 'Please enter your notes' %>
+            </div>
+
+            <div class="form-check">
+              <%= form.check_box :is_default, class: 'form-check-input' %>
+              <label class="form-check-label" for="defaultCheck1">
+                Default Address?
+              </label>
             </div>
           </li>
           <li class="nav-item text-start mx-2">

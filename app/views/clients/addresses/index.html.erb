@@ -3,39 +3,41 @@
   <h1>Address Book</h1>
   <div class="card">
     <div class="card-body">
-      <table class="table table-hover text-center">
-        <thead>
+      <table class="table table-hover text-center ">
+        <thead class="table-light">
         <th>Full Name</th>
-        <th></th>
-        <th>Address</th>
+        <th colspan="2">Address</th>
         <th>Postcode</th>
         <th>Mobile Number</th>
         <th>Remarks</th>
         <th></th>
         </thead>
         <% @addresses.each do |address| %>
-        <tbody>
-        <tr>
-          <td><%= address.name %></td>
-          <td><span class="btn btn-warning" style="border-radius: 20px; padding: 0 8px 0 8px"><%= address.genre %></span></td>
-          <td>
-             <%= address.street_address %></td>
-          <td><%= "#{address.barangay&.name}, #{address.city_municipality&.name}, #{address.province&.name}, #{address.region.name}" %></td>
-          <td><%= address.phone %></td>
-          <td><%= address.remark %></td>
-          <td>
-            <%= link_to 'Edit', edit_clients_address_path(address), class: "btn btn-secondary" %>
-            <%= button_to 'Delete', clients_address_path(address), method: :delete, :onclick => "return confirm('Are you sure you want to delete?')", class: "btn btn-outline-danger" %>
-          </td>
-        </tr>
-        </tbody>
-          <% end %>
+          <tbody class="align-middle">
+          <tr>
+            <td><%= address.name %></td>
+            <td>
+              <span class="badge rounded-pill text-bg-warning" style="padding: 5px 14px 5px 14px"><%= address.genre %></span>
+            <td>
+              <% if address.is_default %>
+                <strong class="text-muted font-weight-bold">Default Address</strong>
+              <% else %>
+                <p></p>
+              <% end %>
+              <%= address.street_address %></td>
+            <td><%= "#{address.barangay&.name}, #{address.city_municipality&.name}, #{address.province&.name}, #{address.region.name}" %></td>
+            <td><%= address.phone %></td>
+            <td><%= address.remark %></td>
+            <td>
+              <%= link_to 'Edit', edit_clients_address_path(address), class: "btn btn-secondary" %>
+              <%= button_to 'Delete', clients_address_path(address), method: :delete, :onclick => "return confirm('Are you sure you want to delete?')", class: "btn btn-outline-danger" %>
+            </td>
+          </tr>
+          </tbody>
+        <% end %>
       </table>
       <%= link_to 'New address', new_clients_address_path, class: "btn btn-dark float-end" %>
-
     </div>
   </div>
 </div>
-
-
 <%= render 'layouts/client_footer_form' %>
