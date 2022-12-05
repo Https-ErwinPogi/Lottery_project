@@ -13,6 +13,8 @@
   <%#= button_to 'Logout', destroy_user_session_path, method: :delete if user_signed_in?%>
 <!--  <p class="notice"><%#= notice %></p>-->
 <!--  <p class="alert"><%#= alert %></p>-->
+  <div style="height: 850px; overflow-y: auto">
   <%= yield %>
+  </div>
   </body>
 </html>
