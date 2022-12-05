@@ -27,12 +27,14 @@
               <%= form.text_field :remark, class: "form-control", placeholder: 'Please enter your notes' %>
             </div>
 
+            <% unless current_user.addresses.empty? %>
             <div class="form-check">
               <%= form.check_box :is_default, class: 'form-check-input' %>
               <label class="form-check-label" for="defaultCheck1">
                 Default Address?
               </label>
             </div>
+            <% end %>
           </li>
           <li class="nav-item text-start mx-2">
             <div class="mb-3">
