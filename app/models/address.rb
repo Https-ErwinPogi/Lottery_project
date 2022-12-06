@@ -1,5 +1,5 @@
 class Address < ApplicationRecord
-  Address_Records_Limit = 5
+  RECORD_LIMITS = 5
   validates :name, :genre, :street_address, presence: true
   validates :phone, presence: true, phone: { possible: true, allow_blank: true, types: [:voip, :mobile], countries: :ph }, length: { maximum: 13 }
   validates_presence_of :remark, { allow_blank: true }
@@ -15,10 +15,9 @@ class Address < ApplicationRecord
   enum genre: { Home: 0, Office: 1 }
 
   private
-
   def limit_address
     return unless self.user
-    if self.user.addresses.reload.count >= Address_Records_Limit
+    if self.user.addresses.reload.count >= RECORD_LIMITS
       errors.add(:base, "You reached the limit!")
     end
   end
