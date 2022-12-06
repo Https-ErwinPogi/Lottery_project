@@ -1,0 +1,41 @@
+<div class="container">
+  <h1>Item Lists</h1>
+  <table class="table table-hover text-center">
+    <thead class="table-light">
+    <th>Item id</th>
+    <th>Image</th>
+    <th>Name</th>
+    <th>Quantity</th>
+    <th>Minimum bets</th>
+    <th>Online at</th>
+    <th>Offline at</th>
+    <th>Start at</th>
+    <th>Status</th>
+    <th></th>
+    </thead>
+
+    <% @items.each do |item| %>
+      <tbody class="align-middle">
+      <tr>
+        <td><%= item.id %></td>
+        <td class="text-center">
+          <%= image_tag item.image.url, class: "rounded" if item.image? %>
+        </td>
+        <td><%= item.name %></td>
+        <td><%= item.quantity %></td>
+        <td><%= item.minimum_bets %></td>
+        <td><%= item.online_at %></td>
+        <td><%= item.offline_at %></td>
+        <td><%= item.start_at %></td>
+        <td><%= item.status %></td>
+        <td>
+          <%= link_to 'Edit', edit_admin_item_path(item), class: "btn btn-secondary" %>
+          <%= button_to 'Delete', admin_item_path(item), method: :delete, :onclick => "return confirm('Are you sure you want to delete?')", class: "btn btn-outline-danger" %>
+        </td>
+      </tr>
+      </tbody>
+
+    <% end %>
+  </table>
+  <%= link_to 'New Item', new_admin_item_path, class: "btn btn-dark" %>
+</div>
