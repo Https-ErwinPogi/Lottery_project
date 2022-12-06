@@ -32,7 +32,8 @@
 
 /app/assets/builds/*
 !/app/assets/builds/.keep
-
+/public/uploads/tmp
+/public/uploads/user
 /node_modules
 
 /config/domain.yml
