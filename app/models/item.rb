@@ -4,6 +4,9 @@ class Item < ApplicationRecord
   default_scope { where(deleted_at: nil) }
   mount_uploader :image, ImageUploader
 
+  has_many :item_category_ships
+  has_many :categories, through: :item_category_ships
+
   enum status: { inactive: 0, active: 1 }
 
   def destroy

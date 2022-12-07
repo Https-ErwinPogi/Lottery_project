@@ -7,6 +7,7 @@
     <th>Name</th>
     <th>Quantity</th>
     <th>Minimum bets</th>
+    <th>Category</th>
     <th>Online at</th>
     <th>Offline at</th>
     <th>Start at</th>
@@ -23,7 +24,8 @@
         </td>
         <td><%= item.name %></td>
         <td><%= item.quantity %></td>
-        <td><%= item.minimum_bets %></td>
+        <td><%= item.minimum_bets %>
+        <td><%= item.categories.pluck(:name).join(',') %></td>
         <td><%= item.online_at %></td>
         <td><%= item.offline_at %></td>
         <td><%= item.start_at %></td>

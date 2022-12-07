@@ -2,7 +2,7 @@ class Admin::ItemsController < AdminController
   before_action :set_item, only: [ :edit, :update, :destroy ]
 
   def index
-    @items = Item.all
+    @items = Item.includes(:categories)
   end
 
   def new
@@ -33,7 +33,6 @@ class Admin::ItemsController < AdminController
   def destroy
     if @item.destroy
       redirect_to admin_items_path
-
     end
   end
 
@@ -44,6 +43,6 @@ class Admin::ItemsController < AdminController
   end
 
   def item_params
-    params.require(:item).permit(:name, :image, :quantity, :minimum_bets, :state, :batch_count, :online_at, :offline_at, :start_at, :status)
+    params.require(:item).permit(:name, :image, :quantity, :minimum_bets, :state, :batch_count, :online_at, :offline_at, :start_at, :status, category_ids: [])
   end
 end

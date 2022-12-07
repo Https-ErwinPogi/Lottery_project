@@ -54,6 +54,10 @@
                 </span>
               <% end %>
             </div>
+
+            <div>
+              <%= form.collection_check_boxes :category_ids, Category.all, :id, :name %>
+            </div>
           </li>
         </ul>
 
