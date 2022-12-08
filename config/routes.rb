@@ -26,6 +26,7 @@ Rails.application.routes.draw do
       resources :profiles
       resources :addresses
       resources :invites
+      resources :lotteries
     end
   end
 
