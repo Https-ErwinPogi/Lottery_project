@@ -1,5 +1,6 @@
 class Admin::ItemsController < AdminController
-  before_action :set_item, only: [ :edit, :update, :destroy ]
+  before_action :set_item, only: [:edit, :update, :destroy]
+  before_action :set_item_event, only: [:start, :pause, :end, :cancel]
 
   def index
     @items = Item.includes(:categories)
@@ -19,7 +20,7 @@ class Admin::ItemsController < AdminController
     end
   end
 
-  def edit ;end
+  def edit; end
 
   def update
     if @item.update(item_params)
@@ -36,10 +37,46 @@ class Admin::ItemsController < AdminController
     end
   end
 
+  def start
+    if @item.may_start?
+      @item.start!
+    else
+      flash[:notice] = 'You cant start the item, there might have unmeet conditions in the items'
+    end
+  end
+
+  def pause
+    if @item.may_pause?
+      @item.pause!
+    else
+      flash[:notice] = 'Item cant be pause'
+    end
+  end
+
+  def end
+    if @item.may_end?
+      @item.end!
+    else
+      flash[:notice] = 'Item cant be end'
+    end
+  end
+
+  def cancel
+    if @item.may_cancel?
+      @item.cancel!
+    else
+      flash[:notice] = 'Item cant be cancel'
+    end
+  end
+
   private
 
   def set_item
     @item = Item.find(params[:id])
+  end
+
+  def set_item_event
+    @item = Item.find(params[:item_id])
   end
 
   def item_params

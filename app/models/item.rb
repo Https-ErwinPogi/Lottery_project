@@ -20,7 +20,7 @@ class Item < ApplicationRecord
     state :starting, :paused, :ended, :cancelled
 
     event :start do
-      transitions from: [:pending, :cancelled, :ended], to: :starting, after: :total_batch, guards: [:quantity_not_negative?, :less_than_present_day?, :active?]
+      transitions from: [:pending, :cancelled, :ended], to: :starting, after: :total_batch, guards: [:quantity_not_negative?, :less_than_present_day?, :is_active?]
       transitions from: :paused, to: :starting
     end
 
@@ -49,10 +49,10 @@ class Item < ApplicationRecord
   end
 
   def less_than_present_day?
-    offline_at > Time.now
+    offline_at > Time.current
   end
 
-  def active?
+  def is_active?
     status == "active"
   end
 end

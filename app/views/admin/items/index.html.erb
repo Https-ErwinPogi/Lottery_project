@@ -1,43 +1,56 @@
 <div class="container">
   <h1>Item Lists</h1>
-  <table class="table table-hover text-center">
-    <thead class="table-light">
-    <th>Item id</th>
-    <th>Image</th>
-    <th>Name</th>
-    <th>Quantity</th>
-    <th>Minimum bets</th>
-    <th>Category</th>
-    <th>Online at</th>
-    <th>Offline at</th>
-    <th>Start at</th>
-    <th>Status</th>
-    <th></th>
-    </thead>
+  <div class="table-responsive-sm">
+    <table class="table table-hover text-center">
+      <thead class="table-light">
+      <th>Item id</th>
+      <th>Image</th>
+      <th>Name</th>
+      <th>Quantity</th>
+      <th>Minimum bets</th>
+      <th>State</th>
+      <th>Category</th>
+      <th>Online at</th>
+      <th>Offline at</th>
+      <th>Start at</th>
+      <th>Status</th>
+      <th colspan="4">Action</th>
+      <th colspan="2"></th>
+      </thead>
 
-    <% @items.each do |item| %>
-      <tbody class="align-middle">
-      <tr>
-        <td><%= item.id %></td>
-        <td class="text-center">
-          <%= image_tag item.image.url, class: "rounded" if item.image? %>
-        </td>
-        <td><%= item.name %></td>
-        <td><%= item.quantity %></td>
-        <td><%= item.minimum_bets %>
-        <td><%= item.categories.pluck(:name).join(',') %></td>
-        <td><%= item.online_at %></td>
-        <td><%= item.offline_at %></td>
-        <td><%= item.start_at %></td>
-        <td><%= item.status %></td>
-        <td>
-          <%= link_to 'Edit', edit_admin_item_path(item), class: "btn btn-secondary" %>
-          <%= button_to 'Delete', admin_item_path(item), method: :delete, :onclick => "return confirm('Are you sure you want to delete?')", class: "btn btn-outline-danger" %>
-        </td>
-      </tr>
-      </tbody>
+      <% @items.each do |item| %>
+        <tbody class="align-middle">
+        <tr>
+          <td><%= item.id %></td>
+          <td class="text-center">
+            <%= image_tag item.image.url, class: "rounded" if item.image? %>
+          </td>
+          <td><%= item.name %></td>
+          <td><%= item.quantity %></td>
+          <td><%= item.minimum_bets %>
+          <td><%= item.state %></td>
+          <td><%= item.categories.pluck(:name).join(',') %></td>
+          <td><%= item.online_at %></td>
+          <td><%= item.offline_at %></td>
+          <td><%= item.start_at %></td>
+          <td><%= item.status %></td>
+          <% if item.quantity != 0 %>
+            <td><%= button_to "Start", admin_item_start_path(item.id), method: :put if item.may_start? %></td>
+            <td><%= button_to "Pause", admin_item_pause_path(item.id), method: :put if item.may_pause? %></td>
+            <td><%= button_to "End", admin_item_end_path(item.id), method: :put if item.may_end? %></td>
+            <td><%= button_to "Cancel", admin_item_cancel_path(item.id), method: :put if item.may_cancel? %></td>
+          <% end %>
+          <td>
+            <%= link_to 'Edit', edit_admin_item_path(item), class: "btn btn-secondary" %>
+          </td>
+          <td>
+            <%= button_to 'Delete', admin_item_path(item), method: :delete, :onclick => "return confirm('Are you sure you want to delete?')", class: "btn btn-outline-danger" %>
+          </td>
+        </tr>
+        </tbody>
 
-    <% end %>
-  </table>
+      <% end %>
+    </table>
+  </div>
   <%= link_to 'New Item', new_admin_item_path, class: "btn btn-dark" %>
 </div>
