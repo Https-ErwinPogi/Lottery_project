@@ -12,7 +12,7 @@
       </div>
     </li>
     <li class="nav-item dropdown ms-auto">
-      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Admin</a>
+      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><%= current_admin_user.email if user_signed_in? %></a>
       <div class="dropdown-menu dropdown-menu-end">
         <a href="#" class="dropdown-item">Settings</a>
         <div class="dropdown-divider"></div>

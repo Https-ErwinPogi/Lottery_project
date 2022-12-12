@@ -34,38 +34,50 @@ class Admin::ItemsController < AdminController
   def destroy
     if @item.destroy
       redirect_to admin_items_path
+      flash[:notice] = 'The items was successfully delete'
+    else
+      redirect_to admin_items_path
+      flash[:alert] = "You can't delete item that has bet"
     end
   end
 
   def start
     if @item.may_start?
       @item.start!
+      redirect_to admin_items_path
     else
-      flash[:notice] = 'You cant start the item, there might have unmeet conditions in the items'
+      flash[:alert] = 'You cant start the item, there might have unmeet conditions in the items'
+      redirect_to admin_items_path
     end
   end
 
   def pause
     if @item.may_pause?
       @item.pause!
+      redirect_to admin_items_path
     else
-      flash[:notice] = 'Item cant be pause'
+      flash[:alert] = 'Item cant be pause'
+      redirect_to admin_items_path
     end
   end
 
   def end
     if @item.may_end?
       @item.end!
+      redirect_to admin_items_path
     else
-      flash[:notice] = 'Item cant be end'
+      flash[:alert] = 'Item cant be end'
+      redirect_to admin_items_path
     end
   end
 
   def cancel
     if @item.may_cancel?
       @item.cancel!
+      redirect_to admin_items_path
     else
-      flash[:notice] = 'Item cant be cancel'
+      flash[:alert] = 'Item cant be cancel'
+      redirect_to admin_items_path
     end
   end
 

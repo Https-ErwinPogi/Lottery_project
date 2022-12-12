@@ -8,11 +8,15 @@ class Item < ApplicationRecord
   validates :quantity, numericality: { greater_than_or_equal_to: 0 }
   has_many :item_category_ships
   has_many :categories, through: :item_category_ships
+  has_many :bets
+  before_destroy
 
   enum status: { inactive: 0, active: 1 }
 
   def destroy
-    update(deleted_at: Time.current)
+    unless bets.present?
+      update(deleted_at: Time.current)
+    end
   end
 
   aasm column: :state do
@@ -32,7 +36,7 @@ class Item < ApplicationRecord
       transitions from: :starting, to: :ended
     end
 
-    event :cancel do
+    event :cancel, after: [:return_bet, :return_quantity] do
       transitions from: [:starting, :paused], to: :cancelled
     end
 
@@ -50,6 +54,14 @@ class Item < ApplicationRecord
 
   def less_than_present_day?
     offline_at > Time.current
+  end
+
+  def return_bet
+    bets.where(batch_count: batch_count).each {| bet | bet.cancel! }
+  end
+
+  def return_quantity
+    self.update!(quantity: self.quantity + 1)
   end
 
   def is_active?

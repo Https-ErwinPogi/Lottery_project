@@ -16,6 +16,9 @@
               <li>
                 <%= link_to 'Item List', admin_items_path, class: "nav-link px-0" %>
               </li>
+              <li>
+                <%= link_to 'Bet List', admin_bets_path, class: "nav-link px-0" %>
+              </li>
             </ul>
           </li>
           <li>
@@ -42,7 +45,7 @@
     </div>
     <div class="container-list col-10 py-2">
       <span class="notice text-center"><%= notice %></span>
-      <span class="alert text-center"><%= alert %></span>
+      <span class="alert text-center text-danger"><%= alert %></span>
       <%= yield %>
     </div>
   </div>

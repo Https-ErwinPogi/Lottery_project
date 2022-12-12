@@ -8,6 +8,7 @@
       <th>Name</th>
       <th>Quantity</th>
       <th>Minimum bets</th>
+      <th>Batch Count</th>
       <th>State</th>
       <th>Category</th>
       <th>Online at</th>
@@ -28,6 +29,7 @@
           <td><%= item.name %></td>
           <td><%= item.quantity %></td>
           <td><%= item.minimum_bets %>
+          <td><%= item.batch_count %>
           <td><%= item.state %></td>
           <td><%= item.categories.pluck(:name).join(',') %></td>
           <td><%= item.online_at %></td>

@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_many :addresses
   belongs_to :parent, class_name: "User", optional: true, counter_cache: :children_members
   has_many :children, class_name: "User", foreign_key: 'parent_id'
+  has_many :bets
+  validates :coins, numericality: { greater_than_or_equal_to: 0 }
 
   mount_uploader :image, ImageUploader
   # Include default devise modules. Others available are:

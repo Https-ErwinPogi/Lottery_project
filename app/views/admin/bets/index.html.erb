@@ -1,0 +1,71 @@
+<div class="col py-3 container">
+  <h1>Bet Lists</h1>
+  <div class="card text-center table-responsive">
+    <div class="card-body">
+      <%= form_tag({ url: admin_bets_path }, { method: :get }) do %>
+        <ul class="nav nav-pills nav-justified mt-3 mb-3 text-start">
+          <li class="nav-item text-start mx-2">
+            <div class="mb-3">
+              <%= label_tag 'Serial Number' %>
+              <%= text_field_tag :serial_number, '', placeholder: "Serial Number", class: "form-control" %>
+            </div>
+
+            <div>
+              <%= label_tag :state %>
+              <%= select_tag :state, options_for_select(Bet.aasm.states.map(&:name)), { prompt: 'Choose State', class: "form-control form-select" } %>
+            </div>
+          <li class="nav-item text-start mx-2">
+            <div class="mb-3">
+              <%= label_tag 'Item Name' %>
+              <%= text_field_tag :item_name, '', placeholder: "Item Name", class: "form-control" %>
+            </div>
+            <div class="mb-3">
+              <%= label_tag 'Email' %>
+              <%= text_field_tag :user_email, '', placeholder: "Email", class: "form-control" %>
+            </div>
+          </li>
+          <li class="nav-item text-start mx-2">
+            <div class="mb-3">
+              <%= label_tag 'Start at' %>
+              <%= datetime_field_tag :start, '', class: "form-control", value: params[:start] %>
+            </div>
+            <div class="mb-3">
+              <%= label_tag 'End at' %>
+              <%= datetime_field_tag :end, '', class: "form-control", value: params[:end] %>
+            </div>
+            <div class="">
+              <%= submit_tag :Search, class: "btn btn-info float-end" %>
+            </div>
+          </li>
+
+      <% end %>
+      </li>
+      </ul>
+      <table class="table table-light">
+        <thead>
+        <th>Serial Number</th>
+        <th>Item Name</th>
+        <th>Email</th>
+        <th>State</th>
+        <th>Created at</th>
+        <th>Action</th>
+        </thead>
+        <tbody>
+        <% @bets.each do |bet| %>
+          <tr>
+            <td><%= bet.serial_number %></td>
+            <td><%= bet.item.name %></td>
+            <td><%= bet.user.email %></td>
+            <td><%= bet.state %></td>
+            <td><%= bet.created_at %></td>
+            <td><%= button_to "Cancel", admin_bet_cancel_path(bet.id), method: :put if bet.may_cancel? %></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+      <% if @bets.blank? %>
+        <h4 class="text-center text-danger">Does not match any results!</h4>
+      <% end %>
+    </div>
+  </div>
+</div>
