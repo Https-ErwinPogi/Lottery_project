@@ -1,16 +1,15 @@
-<%= render 'layouts/clients_form/client_header_form' %>
 <div class="container mt-5">
   <h1>Address Book</h1>
-  <div class="card">
-    <div class="card-body">
-      <table class="table table-hover text-center ">
-        <thead class="table-light">
+  <div class="card bg-dark">
+    <div class="card-body" style="overflow-x: auto">
+      <table class="table text-center text-white">
+        <thead class="">
         <th>Full Name</th>
         <th colspan="2">Address</th>
         <th>Postcode</th>
         <th>Mobile Number</th>
         <th>Remarks</th>
-        <th></th>
+        <th colspan="2"></th>
         </thead>
         <% @addresses.each do |address| %>
           <tbody class="align-middle">
@@ -30,14 +29,15 @@
             <td><%= address.remark %></td>
             <td>
               <%= link_to 'Edit', edit_clients_address_path(address), class: "btn btn-secondary" %>
+            </td>
+            <td>
               <%= button_to 'Delete', clients_address_path(address), method: :delete, :onclick => "return confirm('Are you sure you want to delete?')", class: "btn btn-outline-danger" %>
             </td>
           </tr>
           </tbody>
         <% end %>
       </table>
-      <%= link_to 'New address', new_clients_address_path, class: "btn btn-dark float-end" %>
+      <%= link_to 'New address', new_clients_address_path, class: "btn btn-secondary float-end" %>
     </div>
   </div>
 </div>
-<%= render 'layouts/clients_form/client_footer_form' %>

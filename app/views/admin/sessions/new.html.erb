@@ -1,27 +1,29 @@
-<div class="card mt-5 container ">
-  <div class="card-body tab-content">
-    <h2 class="text-center">Admin Log in</h2>
-    <%= form_for(resource, as: resource_name, url: admin_user_session_path, data: { turbo: false }) do |f| %>
-      <div class="field mb-3">
-        <%= f.label :email %><br/>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "email@example.com" %>
-      </div>
-
-      <div class="field mb-3">
-        <%= f.label :password %><br/>
-        <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Password" %>
-      </div>
-
-      <% if devise_mapping.rememberable? %>
+<div class="container col-md-5">
+  <div class="card mt-5 container bg-dark text-white">
+    <div class="card-body tab-content">
+      <h2 class="text-center">Admin Log in</h2>
+      <%= form_for(resource, as: resource_name, url: admin_user_session_path, data: { turbo: false }) do |f| %>
         <div class="field mb-3">
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
+          <%= f.label :email %><br/>
+          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "email@example.com" %>
+        </div>
+
+        <div class="field mb-3">
+          <%= f.label :password %><br/>
+          <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Password" %>
+        </div>
+
+        <% if devise_mapping.rememberable? %>
+          <div class="field mb-3">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div>
+        <% end %>
+
+        <div class="actions">
+          <%= f.submit "Log in", class: "btn btn-primary btn-block mb-3 w-100" %>
         </div>
       <% end %>
-
-      <div class="actions">
-        <%= f.submit "Log in", class: "btn btn-primary btn-block mb-3 w-100" %>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>

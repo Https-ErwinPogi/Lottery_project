@@ -9,9 +9,7 @@
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
-  <body style="background-color: #121212" class="text-white">
-    <%= render 'layouts/clients_form/client_header_form' %>
+  <body >
     <%= yield %>
-    <%= render 'layouts/clients_form/client_footer_form' %>
   </body>
 </html>

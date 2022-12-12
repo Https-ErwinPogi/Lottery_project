@@ -1,7 +1,7 @@
 <%= form_with model: address, url: path, data: { turbo: false, controller: :location } do |form| %>
   <div class="container mt-5">
     <h1>Add New Address</h1>
-    <div class="card bg-light">
+    <div class="card bg-dark">
       <% if @address.errors.any? %>
         <ul class="list-unstyled text-center">
           <% @address.errors.each do |error| %>
@@ -78,7 +78,7 @@
         </ul>
 
         <div class="mt-3 text-center">
-          <%= form.submit 'Save', class: "btn btn-success w-25" %>
+          <%= form.submit 'Save', class: "btn btn-light w-25" %>
           <%= link_to 'Cancel', clients_addresses_path, class: "btn btn-secondary w-25" %>
         </div>
       </div>

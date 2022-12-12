@@ -1,34 +1,37 @@
-<%= render 'layouts/clients_form/client_header_form' %>
-<div class="card mt-5 container">
-  <div class="card-body tab-content">
-    <ul class="nav nav-pills nav-justified mt-3 mb-3" id="ex1" role="tablist">
-      <li class="nav-item" role="presentation">
-        <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="/users/sign_in" role="tab"
-           aria-controls="pills-login" aria-selected="true">Login</a>
-      </li>
-      <li class="nav-item" role="presentation">
-        <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
-          <%= link_to "Register", new_registration_path(resource_name), class: "nav-link" %><br/>
-        <% end %>
-      </li>
-    </ul>
-    <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
-      <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }, class: "px-4 py-3") do |f| %>
-        <div class="mb-3">
-          <%= f.label :email, class: "form-label" %><br/>
-          <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "email@example.com" %>
-        </div>
+  <div class="container col-md-5">
+    <div class="card mt-5 container bg-dark">
+      <div class="text-center">
+        <i class="bi bi-person-circle" style="font-size: 5rem; margin: 0"></i>
+      </div>
+      <div class="card-body tab-content">
+        <ul class="nav nav-pills nav-justified mt-3 mb-3" id="ex1" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a class="nav-link active" id="tab-login" data-mdb-toggle="pill" href="/users/sign_in" role="tab"
+               aria-controls="pills-login" aria-selected="true">Login</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
+              <%= link_to "Register", new_registration_path(resource_name), class: "nav-link" %><br/>
+            <% end %>
+          </li>
+        </ul>
+        <div class="tab-pane fade show active" id="pills-login" role="tabpanel" aria-labelledby="tab-login">
+          <%= form_for(resource, as: resource_name, url: session_path(resource_name), data: { turbo: false }, class: "px-4 py-3") do |f| %>
+            <div class="mb-3">
+              <%= f.label :email, class: "form-label" %><br/>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "email@example.com" %>
+            </div>
 
-        <div class="mb-3">
-          <%= f.label :password, class: "form-label" %><br/>
-          <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Password" %>
-        </div>
+            <div class="mb-3">
+              <%= f.label :password, class: "form-label" %><br/>
+              <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Password" %>
+            </div>
 
-        <div class="actions text-center">
-          <%= f.submit "Log in", class: "btn btn-primary btn-block mb-3 w-100" %>
+            <div class="actions text-center">
+              <%= f.submit "Log in", class: "btn btn-primary btn-block mb-3 w-100" %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
+      </div>
     </div>
   </div>
-</div>
-<%= render 'layouts/clients_form/client_footer_form' %>
