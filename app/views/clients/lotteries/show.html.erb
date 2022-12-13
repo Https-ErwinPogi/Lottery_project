@@ -1,0 +1,45 @@
+<div class="container mt-5 mb-5">
+  <div class="row ">
+    <div class="col-lg-8 mb-3 text-center">
+      <div class="card shadow-sm">
+        <div class="card-body d-flex flex-column">
+          <%= image_tag @item.image.url, class: "rounded text-center" if @item.image? %>
+        </div>
+        <div class="card-footer text-black">
+          <%= @item.name %>
+        </div>
+      </div>
+      <div class="mt-5">
+        <%= form_for @bet, url: clients_lotteries_path(@bet), method: :post, data: { turbo: false } do |form| %>
+          <% if @bet.errors.any? %>
+            <ul class="list-unstyled text-center">
+              <% @bet.errors.each do |error| %>
+                <li class="text-danger"><%= error.full_message %></li>
+              <% end %>
+            </ul>
+          <% end %>
+          <%= form.hidden_field :item_id, value: @item.id %>
+
+          <div class="input-group plus-minus-input" data-controller="bets">
+            <button type="button" class="minus p-2 px-3 btn btn-warning" data-action="click->bets#betMinus">-</button>
+            <%= form.text_field :coins, min: 1, value: 1, class: 'form-control text-center', data: { bets_target: "betCoins" } %>
+            <button type="button" class="plus p-2 px-3 btn btn-warning" data-action="click->bets#betPlus">+</button>
+          </div>
+          <div>
+            <%= form.submit class: "btn btn-warning w-100 mt-3" %>
+          </div>
+        <% end %>
+      </div>
+
+      <div>
+        <% @current_bets.each do |serial_number| %>
+          <p class="bg-light mt-3 text-black rounded">
+            Serial number: <%= serial_number.serial_number %></p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+

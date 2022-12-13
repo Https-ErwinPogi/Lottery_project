@@ -9,3 +9,6 @@ application.register("hello", HelloController)
 
 import LocationController from "./location_controller"
 application.register("location", LocationController)
+
+import Bets_controller from "./bets_controller";
+application.register("bets", Bets_controller)
