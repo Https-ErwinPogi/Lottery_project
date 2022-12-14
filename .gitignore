@@ -35,6 +35,7 @@
 /public/uploads/tmp
 /public/uploads/user
 /public/uploads/item
+/app/assets/images/
 /node_modules
 
 /config/domain.yml

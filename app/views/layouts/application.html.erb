@@ -11,6 +11,8 @@
   </head>
   <body style="background-color: #121212" class="text-white">
     <%= render 'layouts/clients_form/client_header_form' %>
+    <span class="notice text-center"><%= notice %></span>
+    <span class="alert text-center text-danger"><%= alert %></span>
     <%= yield %>
     <%= render 'layouts/clients_form/client_footer_form' %>
   </body>

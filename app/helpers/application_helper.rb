@@ -1,5 +1,5 @@
 module ApplicationHelper
-  def current?(key, path)
+  def active_navbar(key, path)
     "#{key}" if current_page? path
   end
 end
