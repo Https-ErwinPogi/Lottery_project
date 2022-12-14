@@ -1,10 +1,10 @@
 class Bet < ApplicationRecord
-  include AASM
   belongs_to :user
   belongs_to :item
-  after_validation :has_enough_coins?, :minimum_bets?
+  after_validation :has_enough_coins?
   after_create :generate_serial_number, :deduct_coins_after_bet
 
+  include AASM
 
   aasm column: :state do
     state :betting, initial: true
@@ -39,12 +39,6 @@ class Bet < ApplicationRecord
   def has_enough_coins?
     if self.user.coins <= 0
       errors.add(:base, "You don't have coins! #{user.coins}")
-    end
-  end
-
-  def minimum_bets?
-    if self.user.coins < self.item.minimum_bets
-      errors.add(:base, "You don't have enough coins! #{item.minimum_bets}")
     end
   end
 end
