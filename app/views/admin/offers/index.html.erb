@@ -1,0 +1,62 @@
+<div class="col py-3 container">
+  <h1>Offer Lists</h1>
+  <div class="card table-responsive text-center">
+    <div class="card-body">
+      <%= form_tag({ url: admin_offers_path }, { method: :get }) do %>
+        <ul class="nav nav-pills nav-justified mt-3 mb-3 text-start">
+          <li class="nav-item text-start mx-2">
+            <%= label_tag :genre %>
+            <%= select_tag :genre, options_for_select(Offer.genres.keys.map{ |key| [key.humanize, key] }, params[:genre]), { prompt: 'Choose Genre', class: "form-control form-select" } %>
+          </li>
+          <li class="nav-item text-start mx-2">
+            <div class="mb-3">
+              <%= label_tag :status %>
+              <%= select_tag :status, options_for_select(Offer.statuses.keys.map{ |key| [key.humanize, key] }, params[:status]), { prompt: 'Choose Status', class: "form-control form-select" } %>
+            </div>
+            <div class="float-end">
+              <%= link_to 'Reset', admin_offers_path, class: "btn btn-secondary" %>
+              <%= submit_tag :Search, class: "btn btn-info" %>
+            </div>
+          </li>
+
+
+        </ul>
+      <% end %>
+
+      <table class="table table-hover">
+        <thead class="table-light">
+        <th>Image</th>
+        <th>Name</th>
+        <th>Amount</th>
+        <th>Coin</th>
+        <th>Status</th>
+        <th>Genre</th>
+        <th colspan="2">Action</th>
+        </thead>
+        <% @offers.each do |offer| %>
+          <tbody>
+          <tr>
+            <td><%= image_tag offer.image.url, class: "rounded" if offer.image? %></td>
+            <td><%= offer.name %></td>
+            <td><%= offer.amount %></td>
+            <td><%= offer.coin %></td>
+            <td><%= offer.status %></td>
+            <td><%= offer.genre %></td>
+            <td>
+              <%= link_to 'Edit', edit_admin_offer_path(offer), class: "btn btn-secondary" %>
+            </td>
+            <td>
+              <%= button_to 'Delete', admin_offer_path(offer), method: :delete, :onclick => "return confirm('Are you sure you want to delete?')", class: "btn btn-outline-danger" %>
+            </td>
+          </tr>
+          </tbody>
+        <% end %>
+      </table>
+      <% if @offers.blank? %>
+        <h4 class="text-center text-danger">No offer list to show</h4>
+      <% end %>
+    </div>
+  </div>
+  <%= link_to 'New', new_admin_offer_path, class: "btn btn-dark px-4 mt-2" %>
+
+</div>

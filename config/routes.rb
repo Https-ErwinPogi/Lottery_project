@@ -27,6 +27,7 @@ Rails.application.routes.draw do
         put :publish
         put :remove_publish
       end
+      resources :offers
     end
   end
 
