@@ -19,6 +19,14 @@ Rails.application.routes.draw do
         put :cancel
       end
       resources :categories
+      resources :winners do
+        put :submit
+        put :pay
+        put :ship
+        put :deliver
+        put :publish
+        put :remove_publish
+      end
     end
   end
 
