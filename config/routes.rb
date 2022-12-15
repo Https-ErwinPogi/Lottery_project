@@ -39,6 +39,9 @@ Rails.application.routes.draw do
       resources :addresses
       resources :invites
       resources :lotteries
+      resources :shops do
+        post :order
+      end
     end
   end
 
