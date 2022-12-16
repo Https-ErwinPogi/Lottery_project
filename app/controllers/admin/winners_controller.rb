@@ -5,6 +5,7 @@ class Admin::WinnersController < AdminController
     @winners = Winner.includes(:item, :bet, :user, :address)
     @winners = @winners.includes(:bet).where(bet: { serial_number: params[:serial_number] }) if params[:serial_number].present?
     @winners = @winners.where(user: { email: params[:user_email] }) if params[:user_email].present?
+    @winners = @winners.includes(:address).where(user: { address: params[:address] }) if params[:address].present?
     @winners = @winners.where(item: { name: params[:item_name] }) if params[:item_name].present?
     @winners = @winners.where(state: params[:state]) if params[:state].present?
     @winners = @winners.where('created_at >= ?', params[:start]) if params[:start].present?
