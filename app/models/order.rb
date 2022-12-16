@@ -21,12 +21,13 @@ class Order < ApplicationRecord
       transitions from: [:pending, :submitted], to: :cancelled
       transitions from: :paid, to: :cancelled, guard: :deduct?, after: [:cancel_update_user_coins, :decrease_total_deposit]
       transitions from: :paid, to: :cancelled,
-                  guards: [:enough_user_coins?], if: proc{!deduct?},
+                  guards: [:enough_user_coins?], if: proc { !deduct? },
                   after: [:cancel_update_user_coins, :decrease_total_deposit]
     end
 
     event :pay do
-      transitions from: :submitted, to: :paid, after: [:pay_update_user_coins, :increase_total_deposit]
+      transitions from: :submitted, to: :paid, guard: :not_deduct?, after: [:pay_update_user_coins, :increase_total_deposit]
+      transitions from: :submitted, to: :paid, guard: :enough_user_coins?, after: [:pay_update_user_coins, :increase_total_deposit]
     end
   end
 
@@ -36,10 +37,10 @@ class Order < ApplicationRecord
   end
 
   def pay_update_user_coins
-    if !deduct?
-      user.update!(coins: user.coins + self.coin)
-    else
+    if deduct?
       user.update!(coins: user.coins - self.coin)
+    else
+      user.update!(coins: user.coins + self.coin)
     end
   end
 
@@ -57,8 +58,12 @@ class Order < ApplicationRecord
     end
   end
 
+  def not_deduct?
+    !deduct?
+  end
+
   def enough_user_coins?
-    user.coins >= self.coin
+    self.user.coins >= self.coin
   end
 
   def decrease_total_deposit

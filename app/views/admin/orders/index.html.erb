@@ -1,0 +1,100 @@
+<div class="col py-3 container">
+  <h1>Order Lists</h1>
+  <div class="card text-center table-responsive">
+    <div class="card-body">
+      <%= form_tag({ url: admin_orders_path }, { method: :get }) do %>
+        <ul class="nav nav-pills nav-justified mt-3 mb-3 text-start">
+          <li class="nav-item text-start mx-2">
+            <div class="mb-3">
+              <%= label_tag 'Serial Number' %>
+              <%= text_field_tag :serial_number, '', placeholder: "Serial Number", class: "form-control" %>
+            </div>
+
+            <div class="mb-3">
+              <%= label_tag :state %>
+              <%= select_tag :state, options_for_select(Order.aasm.states.map(&:name)), { prompt: 'Choose State', class: "form-control form-select" } %>
+            </div>
+
+            <div>
+              <p>Total:</p>
+              <p>
+                <span class="text-muted">Coins: </span><%= @total_coins %> <%= image_tag ("coin.png"), height: 18, width: 18 %>
+              </p>
+              <p><span class="text-muted">Amount: </span>₱<%= @total_amount %></p>
+            </div>
+          </li>
+
+          <li class="nav-item text-start mx-2">
+            <div class="mb-3">
+              <%= label_tag :Genre %>
+              <%= select_tag :genre, options_for_select(Order.genres.keys.map { |key| [key.humanize, key] }, params[:genre]), { prompt: 'Choose Genre', class: "form-control form-select" } %>
+            </div>
+            <div class="mb-3">
+              <%= label_tag 'Email' %>
+              <%= text_field_tag :user_email, '', placeholder: "Email", class: "form-control" %>
+            </div>
+          </li>
+          <li class="nav-item text-start mx-2">
+            <div class="mb-3">
+              <%= label_tag 'Start at' %>
+              <%= datetime_field_tag :start, '', class: "form-control", value: params[:start] %>
+            </div>
+            <div class="mb-3">
+              <%= label_tag 'End at' %>
+              <%= datetime_field_tag :end, '', class: "form-control", value: params[:end] %>
+            </div>
+            <div class="float-end">
+              <%= submit_tag :Search, class: "btn btn-primary " %>
+              <%= link_to 'Reset', admin_orders_path, class: "btn btn-secondary" %>
+            </div>
+
+          </li>
+        </ul>
+      <% end %>
+
+      <table class="table table-light">
+        <thead>
+        <th>Serial Number</th>
+        <th>Order Name</th>
+        <th>Email</th>
+        <th>Genre</th>
+        <th>State</th>
+        <th>Created at</th>
+        <th>Coin</th>
+        <th>Amount</th>
+        <th colspan="2">Action</th>
+        </thead>
+        <tbody class="align-middle">
+        <% @orders.each do |order| %>
+          <tr>
+            <td><%= order.serial_number %></td>
+            <td><%= order.offer.name %></td>
+            <td><%= order.user.email %></td>
+            <td><%= order.genre %></td>
+            <td><%= order.state %></td>
+            <td><%= order.created_at %></td>
+            <td><%= order.coin %></td>
+            <td>₱<%= order.amount %></td>
+            <td><%= button_to "Pay", admin_order_pay_path(order.id), method: :put if order.may_pay? %></td>
+            <td><%= button_to "Cancel", admin_order_cancel_path(order.id), method: :put if order.may_cancel? %></td>
+          </tr>
+        <% end %>
+        </tbody>
+        <% unless @subtotal_amount == 0.0 && @subtotal_coin == 0 %>
+          <tfoot>
+          <tr class="bg-white">
+            <td colspan="5" class="bg-white"></td>
+            <td class="bg-white text-end">Subtotal:</td>
+            <td class="bg-white"><%= @subtotal_coin %></td>
+            <td class="bg-white">₱<%= @subtotal_amount %></td>
+            <td colspan="2" class="bg-white"></td>
+          </tr>
+          </tfoot>
+        <% end %>
+      </table>
+      <% if @orders.blank? %>
+        <h4 class="text-center text-danger">No order to show!</h4>
+      <% end %>
+    </div>
+  </div>
+</div>
