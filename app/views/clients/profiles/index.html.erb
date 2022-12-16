@@ -20,4 +20,90 @@
       </div>
     </div>
   </div>
+  <div class="mt-2 mb-2">
+    <%= link_to "Order History", clients_profiles_path(history: 'order'), class: 'd-inline btn btn-dark text-light mb-2' %>
+    <%= link_to "Lottery History", clients_profiles_path(history: 'bet'), class: 'd-inline btn btn-dark text-light mb-2'  %>
+    <%= link_to "Invite History", clients_profiles_path(history: 'invite'), class: 'd-inline btn btn-dark text-light mb-2' %>
+    <%= link_to "Winning History", clients_profiles_path(history: 'winner'), class: 'd-inline btn btn-dark text-light mb-2' %>
+  </div>
+
+  <% @orders&.each do |order| %>
+    <div class="card bg-light mb-1 text-black">
+      <div class="card-body">
+        <div>
+          <p><span class="text-muted">Serial Number:</span> <%= order.serial_number %>
+          </p>
+        </div>
+        <div>
+          <p><span class="text-muted">Amount</span> <%= order.amount %>
+          </p>
+        </div>
+        <div>
+          <p><span class="text-muted">Coins:</span> <%= order.coin %>
+          </p>
+        </div>
+        <div>
+          <p><span class="text-muted">Created At:</span> <%= order.created_at %>
+          </p>
+        </div>
+        <div>
+          <p><span class="text-muted">State:</span> <%= order.state %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% @bets&.each do |bet| %>
+    <div class="card bg-light border-dark mb-1 text-black">
+      <div class="card-body">
+        <div>
+          <p><span class="text-muted">Serial Number:</span> <%= bet.serial_number %>
+          </p>
+        </div>
+        <div>
+          <p><span class="text-muted">Created At:</span> <%= bet.created_at %>
+          </p>
+        </div>
+        <div>
+          <p><span class="text-muted">State:</span> <%= bet.state %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% @invites&.each do |invite| %>
+    <div class="card bg-light border-dark mb-1 text-black">
+      <div class="card-body">
+        <div>
+          <p><span class="text-muted">Email:</span> <%= invite.email %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+  <% @winners&.each do |winner| %>
+    <div class="card bg-light border-dark text-black mb-1">
+      <div class="card-body">
+        <div>
+          <p><span class="text-muted">Serial Number:</span> <%= winner.bet.serial_number %>
+          </p>
+        </div>
+        <div>
+          <p><span class="text-muted">Item Name::</span> <%= winner.item.name %>
+          </p>
+        </div>
+        <div>
+          <p><span class="text-muted">Created At:</span> <%= winner.created_at %>
+          </p>
+        </div>
+        <div>
+          <p><span class="text-muted">State:</span> <%= winner.state %>
+          </p>
+        </div>
+      </div>
+    </div>
+  <% end %>
 </div>
