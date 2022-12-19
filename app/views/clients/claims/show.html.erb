@@ -1,0 +1,49 @@
+<div class="container" style="margin-top: 100px; height: 100vh; overflow-y: auto">
+  <div class="card border-0">
+    <h5 class="card-header text-light text-center bg-dark">Claim Prize</h5>
+    <div class="card-body text-black m-3">
+      <h3>Winning Bet</h3>
+      <div>Serial Number: <%= @winner.bet.serial_number %></div>
+      <div>Item Name: <%= @winner.item.name %></div>
+      <div>Date Created: <%= @winner.created_at %></div>
+      <div class="mt-3">
+        <%= form_for @winner, url: clients_claim_path(@winner), method: :patch, data: { turbo: false} do |f| %>
+          <b>Select Address:</b>
+          <% @user.addresses.each do |address| %>
+            <div class="row mt-2">
+              <div class="col d-flex ms-2" style="max-width: 40px">
+                <%= f.radio_button :address_id, address.id, checked: address.is_default %>
+              </div>
+              <div class="col">
+                <span class="badge rounded-pill text-dark mb-1 bg-warning"> <%= address.genre %></span>
+                <span class="badge rounded-pill text-light mb-1 bg-dark"><%= :Default if address.is_default %></span>
+                <div>
+                  <div class="fw-bold d-inline">Name:</div>
+                  <%= address.name %>
+                </div>
+                <div>
+                  <div class="fw-bold d-inline">Address:</div>
+                  <%= address_join(address) %>
+                </div>
+                <div>
+                  <div class="fw-bold d-inline">Phone number:</div>
+                  <%= address.phone %>
+                </div>
+              </div>
+            </div>
+            <hr class="text-dark">
+          <% end %>
+          <div class="row">
+            <div class="col-sm-2">
+              <%= f.submit "Claim", class: 'border btn form-control text-light btn-dark' %>
+            </div>
+            <div class="col-sm-2">
+              <%= link_to "Back", clients_profiles_path(history: 'winner'), class: 'border btn form-control text-light btn-dark' %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

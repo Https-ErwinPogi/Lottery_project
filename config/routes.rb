@@ -46,6 +46,7 @@ Rails.application.routes.draw do
       resources :shops do
         post :order
       end
+      resources :claims
     end
   end
 
