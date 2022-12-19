@@ -1,0 +1,2 @@
+module Clients::SharesHelper
+end

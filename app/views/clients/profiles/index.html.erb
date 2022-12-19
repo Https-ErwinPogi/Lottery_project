@@ -106,6 +106,7 @@
       </div>
       <div class="card-footer">
         <%= link_to "Claim", clients_claim_path(winner), class: 'btn btn-warning text-light float-end' if winner.may_claim? %>
+        <%= link_to "Share", clients_share_path(winner), class: 'btn btn-warning text-light float-end' if winner.may_share?%>
       </div>
     </div>
   <% end %>

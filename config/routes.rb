@@ -47,6 +47,7 @@ Rails.application.routes.draw do
         post :order
       end
       resources :claims
+      resources :shares
     end
   end
 
