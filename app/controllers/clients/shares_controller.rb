@@ -1,5 +1,10 @@
 class Clients::SharesController < ApplicationController
+  before_action :authenticate_user!, except: :index
   before_action :set_winner, only: [:show, :update]
+
+  def index
+    @winners = Winner.published
+  end
 
   def show; end
 
