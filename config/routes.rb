@@ -48,6 +48,9 @@ Rails.application.routes.draw do
       end
       resources :claims
       resources :shares
+      scope :orders, path: 'orders', as: 'orders' do
+        put "cancel/:order_id", to: 'orders#cancel'
+      end
     end
   end
 

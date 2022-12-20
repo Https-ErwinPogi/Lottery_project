@@ -22,7 +22,7 @@
   </div>
   <div class="mt-2 mb-2">
     <%= link_to "Order History", clients_profiles_path(history: 'order'), class: 'd-inline btn btn-dark text-light mb-2' %>
-    <%= link_to "Lottery History", clients_profiles_path(history: 'bet'), class: 'd-inline btn btn-dark text-light mb-2'  %>
+    <%= link_to "Lottery History", clients_profiles_path(history: 'bet'), class: 'd-inline btn btn-dark text-light mb-2' %>
     <%= link_to "Invite History", clients_profiles_path(history: 'invite'), class: 'd-inline btn btn-dark text-light mb-2' %>
     <%= link_to "Winning History", clients_profiles_path(history: 'winner'), class: 'd-inline btn btn-dark text-light mb-2' %>
   </div>
@@ -51,6 +51,11 @@
           </p>
         </div>
       </div>
+      <% if order.submitted? %>
+        <div class="card-footer">
+          <%= button_to "Cancel", clients_orders_path(order.id), method: :put, class: 'btn btn-warning text-light float-end' %>
+        </div>
+      <% end %>
     </div>
   <% end %>
 
@@ -106,7 +111,7 @@
       </div>
       <div class="card-footer">
         <%= link_to "Claim", clients_claim_path(winner), class: 'btn btn-warning text-light float-end' if winner.may_claim? %>
-        <%= link_to "Share", clients_share_path(winner), class: 'btn btn-warning text-light float-end' if winner.may_share?%>
+        <%= link_to "Share", clients_share_path(winner), class: 'btn btn-warning text-light float-end' if winner.may_share? %>
       </div>
     </div>
   <% end %>
