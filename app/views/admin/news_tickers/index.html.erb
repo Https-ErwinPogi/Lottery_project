@@ -1,0 +1,29 @@
+<h1>News Ticker List</h1>
+<div class="card table-responsive p-3">
+  <div class="card-body">
+  <table class="table table-hover text-center align-middle">
+    <thead class="table-light">
+    <th>Id</th>
+    <th>Admin Email</th>
+    <th>Content</th>
+    <th>Status</th>
+    <th colspan="2">Action</th>
+    </thead>
+    <tbody>
+    <% @news_tickers.each do |news| %>
+      <tr>
+        <td><%= news.id %></td>
+        <td><%= news.admin.email %></td>
+        <td><%= news.content %></td>
+        <td><%= news.status %></td>
+        <td  class="p-1"><%= link_to 'Edit', edit_admin_news_ticker_path(news), class: "btn btn-outline-success" %></td>
+        <td class="p-2"><%= button_to 'Delete', admin_news_ticker_path(news), method: :delete, class: "btn btn-outline-danger" %></td>
+      </tr>
+      </tbody>
+    <% end %>
+    </table>
+  <div class="">
+    <%= link_to 'New', new_admin_news_ticker_path, class: "btn btn-dark px-4" %>
+  </div>
+  </div>
+</div>

@@ -37,6 +37,7 @@ Rails.application.routes.draw do
         put :cancel
       end
       resources :invite_lists
+      resources :news_tickers
     end
   end
 
