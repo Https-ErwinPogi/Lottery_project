@@ -1,0 +1,48 @@
+<div class="col py-3 container">
+  <h1>Invite List</h1>
+  <div class="card text-center table-responsive">
+    <div class="card-body">
+      <%= form_tag({ url: admin_users_path }, { method: :get }) do %>
+        <ul class="nav nav-pills nav-justified mt-3 mb-3 text-start">
+          <li class="nav-item text-start">
+            <%= text_field_tag :parent_email, '', placeholder: "Search for parent email", class: "form-control" %>
+          </li>
+
+        </ul>
+        <div class="float-end mb-3">
+          <%= submit_tag :Search, class: "btn btn-primary " %>
+          <%= link_to 'Reset', admin_invite_lists_path, class: "btn btn-secondary" %>
+        </div>
+        <% end %>
+      <table class="table table-light text-center">
+        <thead>
+        <th>Parent email</th>
+        <th>Email</th>
+        <th>Total Deposit</th>
+        <th>Members total deposit</th>
+        <th>Coins</th>
+        <th>Created at</th>
+        <th>Coins used count</th>
+        <th>Child Members</th>
+        </thead>
+        <tbody>
+        <% @users.each do |user| %>
+          <tr>
+            <td><%= user.parent.email %></td>
+            <td><%= user.email %></td>
+            <td><%= user.total_deposit %></td>
+            <td><%= user.children.sum(&:total_deposit) %></td>
+            <td><%= user.coins %></td>
+            <td><%= user.created_at %></td>
+            <td><%= user.bets.where.not(state: :cancelled).count %></td>
+            <td><%= user.children_members %></td>
+          </tr>
+          </tbody>
+        <% end %>
+        </table>
+      <% if @users.blank? %>
+        <h4 class="text-center text-danger">No results found!</h4>
+      <% end %>
+    </div>
+  </div>
+</div>

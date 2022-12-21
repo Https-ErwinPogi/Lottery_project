@@ -36,6 +36,7 @@ Rails.application.routes.draw do
         put :pay
         put :cancel
       end
+      resources :invite_lists
     end
   end
 
