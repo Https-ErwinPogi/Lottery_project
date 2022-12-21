@@ -38,6 +38,7 @@ Rails.application.routes.draw do
       end
       resources :invite_lists
       resources :news_tickers
+      resources :banners
     end
   end
 

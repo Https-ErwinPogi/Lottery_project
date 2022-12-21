@@ -1,0 +1,36 @@
+<%= form_with model: banner, url: path, data: { turbo: false } do |form| %>
+  <div class="container mt-5">
+    <div class="card">
+      <div class="card-body">
+        <%= form.label :Preview %>
+        <%= form.file_field :preview, class: "form-control" %>
+        <ul class="nav nav-pills nav-justified mt-3 mb-3 text-start gap-2">
+          <li class="nav-item text-start">
+            <div class="mb-3">
+              <%= form.label :online_at %>
+              <%= form.datetime_field :online_at, class: "form-control" %>
+            </div>
+
+          </li>
+          <li class="nav-item text-start">
+            <div class="mb-3">
+              <%= form.label :offline_at %>
+              <%= form.datetime_field :offline_at, class: "form-control" %>
+            </div>
+          </li>
+        </ul>
+        <p class="">Set status:</p>
+        <% Item.statuses.keys.each do |status| %>
+        <span style="margin-right: 10px">
+          <%= form.radio_button :status, status %>
+          <%= form.label status.to_sym %>
+        </span>
+        <% end %>
+        <div class="text-end mt-3">
+          <%= form.submit class: "btn btn-success " %>
+          <%= link_to 'Cancel', admin_banners_path, class: "btn btn-outline-secondary" %>
+        </div>
+      </div>
+    </div>
+  </div>
+<% end %>

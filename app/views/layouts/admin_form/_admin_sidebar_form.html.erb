@@ -34,6 +34,9 @@
               <li>
                 <%= link_to 'News Ticker List', admin_news_tickers_path, class: "nav-link px-0" %>
               </li>
+              <li>
+                <%= link_to 'Banner List', admin_banners_path, class: "nav-link px-0" %>
+              </li>
             </ul>
           </li>
           <li>
@@ -59,7 +62,7 @@
       </div>
     </div>
     <div class="container-list col-10 py-2">
-      <span class="notice text-center"><%= notice %></span>
+      <span class="notice text-center text-success"><%= notice %></span>
       <span class="alert text-center text-danger"><%= alert %></span>
       <%= yield %>
     </div>
