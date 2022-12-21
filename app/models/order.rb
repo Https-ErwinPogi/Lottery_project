@@ -1,7 +1,9 @@
 class Order < ApplicationRecord
-  validates :amount, numericality: { greater_than_or_equal: 0 }
+  validates :amount, numericality: { greater_than_or_equal: 1 }, if: :deposit?
+  validates :coin, presence: true, numericality: { greater_than: 0 }
+  validates :remarks, presence: true, unless: :deposit?
   belongs_to :user
-  belongs_to :offer
+  belongs_to :offer, optional: true
   after_create :generate_serial_number
   after_validation :check_amount
 

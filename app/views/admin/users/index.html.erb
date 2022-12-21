@@ -8,6 +8,7 @@
   <th>Total Deposit</th>
   <th>Children Members</th>
   <th>Parent email</th>
+  <th>Action</th>
   </thead>
   <% @users.each do |user| %>
     <tr>
@@ -18,6 +19,9 @@
       <td><%= user.total_deposit %></td>
       <td><%= user.children_members %></td>
       <td><%= user.parent&.email %></td>
+      <td>
+      <%= link_to 'Balance Operates', new_admin_user_increase_path(user), class: "btn btn-secondary" %>
+      </td>
     </tr>
   <% end %>
 </table>

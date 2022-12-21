@@ -8,7 +8,11 @@ Rails.application.routes.draw do
     namespace :admin, path: '' do
       root to: "home#index", as: :admin_root
       devise_for :users, controllers: { sessions: 'admin/sessions' }
-      resources :users
+      resources :users, path: 'users/clients' do
+        resources :increases, path: 'orders/increase', only: [:new, :create]
+        resources :deducts, path: 'orders/deduct', only: [:new, :create]
+        resources :bonuses, path: 'orders/bonus', only: [:new, :create]
+      end
       resources :items do
         put :start
         put :pause

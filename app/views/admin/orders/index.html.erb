@@ -55,7 +55,7 @@
       <table class="table table-light">
         <thead>
         <th>Serial Number</th>
-        <th>Order Name</th>
+        <th>Offer Name</th>
         <th>Email</th>
         <th>Genre</th>
         <th>State</th>
@@ -68,7 +68,7 @@
         <% @orders.each do |order| %>
           <tr>
             <td><%= order.serial_number %></td>
-            <td><%= order.offer.name %></td>
+            <td><%= order.offer&.name %></td>
             <td><%= order.user.email %></td>
             <td><%= order.genre %></td>
             <td><%= order.state %></td>
