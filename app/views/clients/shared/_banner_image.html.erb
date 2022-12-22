@@ -1,0 +1,75 @@
+<style>
+    .marquee-container {
+        width: 100vw;
+        overflow: hidden;
+        white-space: nowrap;
+    }
+
+    .marquee {
+        padding-left: 100vw;
+        display: inline-block;
+        animation: marquee 5s linear infinite;
+        animation-play-state: running;
+    }
+
+    .marquee.paused, .marquee-container:hover .marquee {
+        animation-play-state: paused;
+    }
+
+    @keyframes marquee {
+        0% {
+            transform: translateX(0);
+        }
+        100% {
+            transform: translateX(-100%);
+        }
+    }
+</style>
+<section class="text-center">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <% banners.each_with_index do |banner, index| %>
+            <% if banner.preview? %>
+              <div class="carousel-item <%= "active" if index.zero? %>">
+                <%= image_tag banner.preview.url, height: "350", width: "1200", style: "object-fit: cover; max-width:100%" %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="marquee-container bg-dark">
+<!--    <span>Announcement: </span>-->
+    <div class="marquee paused container">
+
+    </div>
+  </div>
+</section>
+
+<script>
+  const content = <%= news_tickers.map(&:content).to_s.html_safe %>;
+
+  let key = 0;
+  const marquee = $('.marquee');
+  marquee.on('animationstart', () => {
+    key = 0;
+    marquee.text(content[key]);
+  });
+  marquee.on('animationiteration', () => {
+    key++;
+    if (typeof content[key] === 'undefined') key = 0;
+    marquee.text(content[key]);
+  });
+  marquee.removeClass('paused');
+</script>
