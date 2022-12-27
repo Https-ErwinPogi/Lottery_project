@@ -1,7 +1,31 @@
+<style>
+    .btn-label {
+        position: relative;
+        left: -12px;
+        display: inline-block;
+        padding: 6px 12px;
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 3px 0 0 3px;
+    }
+
+    .btn-labeled {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .btn {
+        margin-bottom: 10px;
+    }
+
+</style>
 <div class="col py-3 container">
   <h1>Invite List</h1>
-  <div class="card text-center table-responsive">
-    <div class="card-body">
+  <div class="text-end">
+    <a href="<%= admin_invite_lists_path(format: :csv) %>" class="btn btn-labeled btn-outline-secondary ">
+      <span class="btn-label"><i class="bi bi-box-arrow-down"></i></span>Export</a>
+  </div>
+  <div class="card text-center ">
+    <div class="card-body table-responsive">
       <%= form_tag({ url: admin_users_path }, { method: :get }) do %>
         <ul class="nav nav-pills nav-justified mt-3 mb-3 text-start">
           <li class="nav-item text-start">
@@ -28,7 +52,7 @@
         <tbody>
         <% @users.each do |user| %>
           <tr>
-            <td><%= user.parent.email %></td>
+            <td><%= user.parent&.email %></td>
             <td><%= user.email %></td>
             <td><%= user.total_deposit %></td>
             <td><%= user.children.sum(&:total_deposit) %></td>

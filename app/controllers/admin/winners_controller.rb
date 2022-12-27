@@ -10,6 +10,28 @@ class Admin::WinnersController < AdminController
     @winners = @winners.where(state: params[:state]) if params[:state].present?
     @winners = @winners.where('created_at >= ?', params[:start]) if params[:start].present?
     @winners = @winners.where('created_at <= ?', params[:end]) if params[:end].present?
+    respond_to do |format|
+      format.html
+      format.csv {
+        csv_string = CSV.generate do |csv|
+          csv << [Winner.human_attribute_name(:serial_number),
+                  Winner.human_attribute_name(:item_name),
+                  Winner.human_attribute_name(:email),
+                  Winner.human_attribute_name(:state),
+                  Winner.human_attribute_name(:address),
+                  Winner.human_attribute_name(:created_at)]
+          @winners.each do |winner|
+            csv << [winner.bet.serial_number ,
+                    winner.item.name,
+                    winner.user.email,
+                    winner.state,
+                    "#{winner.address.street_address}, #{winner.address.barangay.name}, #{winner.address.city_municipality.name}, #{winner.address.province.name}, #{winner.address.region.name}",
+                    winner.created_at]
+          end
+        end
+        render plain: csv_string
+      }
+    end
   end
 
   def submit

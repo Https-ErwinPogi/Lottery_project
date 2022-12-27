@@ -1,5 +1,28 @@
+<style>
+    .btn-label {
+        position: relative;
+        left: -12px;
+        display: inline-block;
+        padding: 6px 12px;
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 3px 0 0 3px;
+    }
+
+    .btn-labeled {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .btn {
+        margin-bottom: 10px;
+    }
+</style>
 <div class="container">
   <h1>Item Lists</h1>
+  <div class="text-end">
+    <a href="<%= admin_items_path(format: :csv) %>" class="btn btn-labeled btn-outline-secondary ">
+      <span class="btn-label"><i class="bi bi-box-arrow-down"></i></span>Export</a>
+  </div>
   <div class="table-responsive-sm">
     <table class="table table-hover text-center">
       <thead class="table-light">
@@ -39,7 +62,7 @@
           <% if item.quantity != 0 %>
             <td><%= button_to "Start", admin_item_start_path(item.id), method: :put if item.may_start? %></td>
             <td><%= button_to "Pause", admin_item_pause_path(item.id), method: :put if item.may_pause? %></td>
-            <td><%= button_to "End", admin_item_end_path(item.id), method: :put if item.may_end? %></td>
+            <td><%= button_to "End", admin_item_end_path(item.id), :onclick => "return confirm('Are you sure you want to end?')", method: :put if item.may_end? %></td>
             <td><%= button_to "Cancel", admin_item_cancel_path(item.id), method: :put if item.may_cancel? %></td>
           <% end %>
           <td>

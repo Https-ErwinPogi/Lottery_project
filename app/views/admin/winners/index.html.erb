@@ -1,5 +1,28 @@
+<style>
+    .btn-label {
+        position: relative;
+        left: -12px;
+        display: inline-block;
+        padding: 6px 12px;
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 3px 0 0 3px;
+    }
+
+    .btn-labeled {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .btn {
+        margin-bottom: 10px;
+    }
+</style>
 <div class="col py-3 container">
   <h1>Winner Lists</h1>
+  <div class="text-end">
+    <a href="<%= admin_winners_path(format: :csv) %>" class="btn btn-labeled btn-outline-secondary ">
+      <span class="btn-label"><i class="bi bi-box-arrow-down"></i></span>Export</a>
+  </div>
   <div class="card text-center table-responsive">
     <div class="card-body">
       <%= form_tag({ url: admin_winners_path }, { method: :get }) do %>
@@ -41,7 +64,7 @@
             </div>
           </li>
         </ul>
-    <% end %>
+      <% end %>
 
       <table class="table table-light">
         <thead>
@@ -51,7 +74,7 @@
         <th>State</th>
         <th>Address</th>
         <th>Created at</th>
-        <th colspan="6">Action</th>
+        <th>Action</th>
         </thead>
         <tbody>
         <% @winners.each do |winner| %>
@@ -62,12 +85,13 @@
             <td><%= winner.state %></td>
             <td><%= address_join(winner.address) %></td>
             <td><%= winner.created_at %></td>
-            <td><%= button_to "Submit", admin_winner_submit_path(winner.id), method: :put if winner.may_submit? %></td>
-            <td><%= button_to "Pay", admin_winner_pay_path(winner.id), method: :put if winner.may_pay? %></td>
-            <td><%= button_to "Ship", admin_winner_ship_path(winner.id), method: :put if winner.may_ship? %></td>
-            <td><%= button_to "Deliver", admin_winner_deliver_path(winner.id), method: :put if winner.may_deliver? %></td>
-            <td><%= button_to "Publish", admin_winner_publish_path(winner.id), method: :put if winner.may_publish? %></td>
-            <td><%= button_to "Remove Publish", admin_winner_remove_publish_path(winner.id), method: :put if winner.may_remove_publish? %></td>
+            <td><%= button_to "Submit", admin_winner_submit_path(winner.id), method: :put if winner.may_submit? %>
+              <%= button_to "Pay", admin_winner_pay_path(winner.id), method: :put if winner.may_pay? %>
+              <%= button_to "Ship", admin_winner_ship_path(winner.id), method: :put if winner.may_ship? %>
+              <%= button_to "Deliver", admin_winner_deliver_path(winner.id), method: :put if winner.may_deliver? %>
+              <%= button_to "Publish", admin_winner_publish_path(winner.id), method: :put if winner.may_publish? %>
+              <%= button_to "Remove Publish", admin_winner_remove_publish_path(winner.id), method: :put if winner.may_remove_publish? %>
+            </td>
           </tr>
         <% end %>
         </tbody>

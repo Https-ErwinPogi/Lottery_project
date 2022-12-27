@@ -1,9 +1,44 @@
 class Admin::ItemsController < AdminController
   before_action :set_item, only: [:edit, :update, :destroy]
   before_action :set_item_event, only: [:start, :pause, :end, :cancel]
+  require 'csv'
 
   def index
     @items = Item.includes(:categories)
+    respond_to do |format|
+      format.html
+      format.csv {
+        csv_string = CSV.generate do |csv|
+          csv << [Item.human_attribute_name(:id),
+                  Item.human_attribute_name(:name),
+                  Item.human_attribute_name(:quantity),
+                  Item.human_attribute_name(:minimum_bets),
+                  Item.human_attribute_name(:batch_count),
+                  Item.human_attribute_name(:state),
+                  Item.human_attribute_name(:category),
+                  Item.human_attribute_name(:online_at),
+                  Item.human_attribute_name(:offline_at),
+                  Item.human_attribute_name(:start_at),
+                  Item.human_attribute_name(:status),
+                  Item.human_attribute_name(:created_at)]
+          @items.each do |item|
+            csv << [item.id,
+                    item.name,
+                    item.quantity,
+                    item.minimum_bets,
+                    item.batch_count,
+                    item.state,
+                    item.categories.pluck(:name).join(','),
+                    item.online_at,
+                    item.offline_at,
+                    item.start_at,
+                    item.status,
+                    item.created_at]
+          end
+        end
+        render plain: csv_string
+      }
+    end
   end
 
   def new

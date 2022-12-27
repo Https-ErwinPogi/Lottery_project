@@ -1,7 +1,30 @@
+<style>
+    .btn-label {
+        position: relative;
+        left: -12px;
+        display: inline-block;
+        padding: 6px 12px;
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 3px 0 0 3px;
+    }
+
+    .btn-labeled {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .btn {
+        margin-bottom: 10px;
+    }
+</style>
 <div class="col py-3 container">
   <h1>Bet Lists</h1>
-  <div class="card text-center table-responsive">
-    <div class="card-body">
+  <div class="text-end">
+    <a href="<%= admin_bets_path(format: :csv) %>" class="btn btn-labeled btn-outline-secondary ">
+      <span class="btn-label"><i class="bi bi-box-arrow-down"></i></span>Export</a>
+  </div>
+  <div class="card text-center">
+    <div class="card-body  table-responsive">
       <%= form_tag({ url: admin_bets_path }, { method: :get }) do %>
         <ul class="nav nav-pills nav-justified mt-3 mb-3 text-start">
           <li class="nav-item text-start mx-2">
@@ -9,11 +32,11 @@
               <%= label_tag 'Serial Number' %>
               <%= text_field_tag :serial_number, '', placeholder: "Serial Number", class: "form-control" %>
             </div>
-
             <div>
               <%= label_tag :state %>
               <%= select_tag :state, options_for_select(Bet.aasm.states.map(&:name)), { prompt: 'Choose State', class: "form-control form-select" } %>
             </div>
+          </li>
           <li class="nav-item text-start mx-2">
             <div class="mb-3">
               <%= label_tag 'Item Name' %>
@@ -37,12 +60,10 @@
               <%= submit_tag :Search, class: "btn btn-info float-end" %>
             </div>
           </li>
-
       <% end %>
-      </li>
       </ul>
-      <table class="table table-light">
-        <thead>
+      <table class="table table-hover">
+        <thead class="table-light">
         <th>Serial Number</th>
         <th>Item Name</th>
         <th>Email</th>

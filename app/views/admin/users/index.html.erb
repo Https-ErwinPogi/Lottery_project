@@ -1,26 +1,54 @@
+<style>
+    .btn-label {
+        position: relative;
+        left: -12px;
+        display: inline-block;
+        padding: 6px 12px;
+        background: rgba(0, 0, 0, 0.15);
+        border-radius: 3px 0 0 3px;
+    }
+
+    .btn-labeled {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .btn {
+        margin-bottom: 10px;
+    }
+
+</style>
 <h1>Users Lists</h1>
+<div class="text-end">
+  <a href="<%= admin_users_path(format: :csv) %>" class="btn btn-labeled btn-outline-secondary ">
+    <span class="btn-label"><i class="bi bi-box-arrow-down"></i></span>Export</a>
+</div>
 <table class="table table-bordered table-hover text-center">
   <thead>
   <th>Id</th>
   <th>email</th>
-  <th>Phone</th>
-  <th>Coins</th>
-  <th>Total Deposit</th>
-  <th>Children Members</th>
   <th>Parent email</th>
+  <th>Total Deposit</th>
+  <th>Member Total Deposits</th>
+  <th>Coins</th>
+  <th>Total used Coins</th>
+  <th>Children Members</th>
+  <th>Phone</th>
   <th>Action</th>
   </thead>
   <% @users.each do |user| %>
     <tr>
       <td><%= user.id %></td>
       <td><%= user.email %></td>
-      <td><%= user.phone %></td>
-      <td><%= user.coins %></td>
-      <td><%= user.total_deposit %></td>
-      <td><%= user.children_members %></td>
       <td><%= user.parent&.email %></td>
+      <td><%= user.total_deposit %></td>
+      <td><%= user.children.sum(&:total_deposit) %></td>
+      <td><%= user.coins %></td>
+      <td><%= user.bets.where.not(state: :cancelled).count %></td>
+      <td><%= user.children_members %></td>
+      <td><%= user.phone %></td>
       <td>
-      <%= link_to 'Balance Operates', new_admin_user_increase_path(user), class: "btn btn-secondary" %>
+        <%= link_to 'Balance Operates', new_admin_user_increase_path(user), class: "btn btn-secondary" %>
       </td>
     </tr>
   <% end %>
