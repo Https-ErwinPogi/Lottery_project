@@ -6,6 +6,16 @@ class User < ApplicationRecord
   has_many :children, class_name: "User", foreign_key: 'parent_id'
   has_many :bets
   has_many :orders
+  belongs_to :member_level, optional: true
+  after_create :check_parent
+
+  def check_parent
+    return unless parent.present?
+    member = MemberLevel.find_by(required_members: parent.children_members)
+    if member.present?
+      parent.update!(coins: parent.coins + member.coins, member_level: member)
+    end
+  end
 
   mount_uploader :image, ImageUploader
   # Include default devise modules. Others available are:

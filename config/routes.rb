@@ -12,6 +12,7 @@ Rails.application.routes.draw do
         resources :increases, path: 'orders/increase', only: [:new, :create]
         resources :deducts, path: 'orders/deduct', only: [:new, :create]
         resources :bonuses, path: 'orders/bonus', only: [:new, :create]
+        resources :member_levels, path: 'orders/member-level', only: [:new, :create]
       end
       resources :items do
         put :start
@@ -39,6 +40,7 @@ Rails.application.routes.draw do
       resources :invite_lists
       resources :news_tickers
       resources :banners
+      resources :member_level_lists
     end
   end
 

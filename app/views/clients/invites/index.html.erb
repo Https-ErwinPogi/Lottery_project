@@ -4,8 +4,22 @@
     <div class="card shadow-sm p-3 mb-10 bg-white rounded" style="max-height: 30rem">
       <%= @qr_as_svg %>
     </div>
-
   </div>
+  <% if @next_member_level.present? %>
+    <div class="card-footer shadow-sm p-3 mb-10 bg-white rounded text-black text-center " style="max-height: 30rem; margin-top: 5rem">
+      <p>Share
+        to <%= @next_member_level.required_members - current_user.children_members if @next_member_level.required_members > current_user.children_members %>
+        friends</p>
+      <p>and get</p>
+      <p><%= @reward_coins %> coins</p>
+    </div>
+  <% end %>
+  <% if @next_member_level.nil? %>
+    <div class="card-footer shadow-sm p-3 mb-10 bg-white rounded text-black text-center " style="max-height: 30rem; margin-top: 5rem">
+      <p>You have reached the Max level!</p>
+      <p>Total invites <%= @reward_coins %></p>
+    </div>
+  <% end %>
   <div class="card-footer text-center mt-3">
     <div class="alert alert-secondary">
       <b>Invite Link: </b>
@@ -15,5 +29,4 @@
           </span>
     </div>
   </div>
-</div>
 </div>

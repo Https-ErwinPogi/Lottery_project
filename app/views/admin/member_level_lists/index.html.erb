@@ -1,0 +1,29 @@
+<h1>Member level List</h1>
+<div class="card p-3">
+  <div class="card-body table-responsive">
+    <table class="table table-hover text-center align-middle">
+      <thead class="table-light">
+      <th>Id</th>
+      <th>Level</th>
+      <th>Required members</th>
+      <th>Reward Coins</th>
+      <th colspan="2">Action</th>
+      </thead>
+      <tbody class="table-group-divider">
+      <% @members.each do |member| %>
+        <tr>
+          <td><%= member.id %></td>
+          <td><%= member.level %></td>
+          <td><%= member.required_members %></td>
+          <td><%= member.coins %></td>
+          <td class="p-1"><%= link_to 'Edit', edit_admin_member_level_list_path(member), class: "btn btn-outline-success" %></td>
+          <td class="p-1"><%= button_to 'Delete', admin_member_level_list_path(member), onclick: "return confirm('Are you sure you want to end?')", method: :delete, class: "btn btn-outline-danger" %></td>
+        </tr>
+        </tbody>
+      <% end %>
+      </table>
+    <div class="">
+      <%= link_to 'New', new_admin_member_level_list_path, class: "btn btn-dark px-4" %>
+    </div>
+  </div>
+</div>

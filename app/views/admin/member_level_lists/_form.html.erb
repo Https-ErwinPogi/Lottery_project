@@ -1,0 +1,22 @@
+<%= form_with model: member_level, url: path, data: { turbo: false } do |form| %>
+  <div class="card">
+    <div class="card-body">
+      <div>
+        <%= form.label :level %>
+        <%= form.number_field :level, class: "form-control", placeholder: "Enter level" %>
+      </div>
+      <div>
+        <%= form.label 'Required Members' %>
+        <%= form.number_field :required_members, class: "form-control", placeholder: "Enter Required members" %>
+      </div>
+      <div>
+        <%= form.label :coins %>
+        <%= form.number_field :coins, class: "form-control", placeholder: "Enter coins" %>
+      </div>
+      <div class="text-end mt-3">
+        <%= form.submit class: "btn btn-success " %>
+        <%= link_to 'Cancel', admin_member_level_lists_path, class: "btn btn-outline-secondary" %>
+      </div>
+    </div>
+  </div>
+<% end %>

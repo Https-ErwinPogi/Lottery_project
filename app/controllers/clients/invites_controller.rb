@@ -4,13 +4,21 @@ class Clients::InvitesController < ApplicationController
   before_action :generate_qr
   before_action :invite_link
 
-  def index ;end
+  def index
+    @next_member_level = MemberLevel.where("required_members > ?", current_user.children_members).first
+    if @next_member_level.present?
+      @reward_coins = @next_member_level.coins
+    else
+      @reward_coins = current_user.children_members
+    end
+  end
 
   private
 
   def invite_link
     @url = "#{request.base_url}/users/sign_up?promoter=#{current_user.email}"
   end
+
   def generate_qr
     qr_code = RQRCode::QRCode.new("#{invite_link}")
 
