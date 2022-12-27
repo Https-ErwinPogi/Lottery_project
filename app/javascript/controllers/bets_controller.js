@@ -10,33 +10,10 @@ export default class extends Controller {
     this.betCoinsTarget.value = count
   }
 
-  betPlus() {
+  betPlus(event) {
+    const value = event.target.dataset.value
     let coins = this.betCoinsTarget.value
-    let count = parseInt(coins) + 1
-    this.betCoinsTarget.value = count
-  }
-
-  betPlusOne() {
-    let coins = this.betCoinsTarget.value
-    let count = parseInt(coins) + 1
-    this.betCoinsTarget.value = count
-  }
-
-  betPlusFive() {
-    let coins = this.betCoinsTarget.value
-    let count = parseInt(coins) + 5
-    this.betCoinsTarget.value = count
-  }
-
-  betPlusTen() {
-    let coins = this.betCoinsTarget.value
-    let count = parseInt(coins) + 10
-    this.betCoinsTarget.value = count
-  }
-
-  betPlusTwenty() {
-    let coins = this.betCoinsTarget.value
-    let count = parseInt(coins) + 20
+    let count = parseInt(coins) + parseInt(value)
     this.betCoinsTarget.value = count
   }
 }
