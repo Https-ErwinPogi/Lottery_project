@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  validates_presence_of :username, :phone, on: :update
   validates :phone, phone: { possible: true, allow_blank: true, types: [:voip, :mobile], countries: :ph }
   validates :coins, numericality: { greater_than_or_equal_to: 0 }
   has_many :addresses

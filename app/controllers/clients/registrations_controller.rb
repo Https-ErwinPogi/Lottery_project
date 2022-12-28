@@ -28,16 +28,17 @@ class Clients::RegistrationsController < Devise::RegistrationsController
     parameter = params[:user]
     if parameter[:password]&.present? || parameter[:password_confirmation]&.present? || parameter[:current_password]&.present?
       update_password
-    else
+    elsif params[:user][:current_password].blank?
       user_update
+    else
+      render :edit
     end
   end
 
   protected
 
   def user_update
-    if params[:user][:current_password].blank?
-      resource.update_without_password(user_params.except(:current_password))
+    if resource.update_without_password(user_params.except(:current_password))
       redirect_to clients_profiles_path
     else
       render :edit
@@ -53,7 +54,7 @@ class Clients::RegistrationsController < Devise::RegistrationsController
   end
 
   def user_params
-    params.require(:user).permit(:phone, :username, :image, :password, :password_confirmation, :current_password)
+    params.require(:user).permit(:phone, :username, :image)
   end
 
   def user_password_params
@@ -76,7 +77,7 @@ class Clients::RegistrationsController < Devise::RegistrationsController
 
   # If you have extra params to permit, append them to the sanitizer.
   def configure_sign_up_params
-    devise_parameter_sanitizer.permit(:sign_up, keys: [:parent_id, :email, :password, :password_confirmation,])
+    devise_parameter_sanitizer.permit(:sign_up, keys: [:parent_id, :email, :password, :password_confirmation])
   end
 
   # If you have extra params to permit, append them to the sanitizer.
