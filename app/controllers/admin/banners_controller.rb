@@ -39,7 +39,7 @@ class Admin::BannersController < AdminController
   private
 
   def banner_params
-    params.require(:banner).permit(:preview, :status, :online_at, :offline_at)
+    params.require(:banner).permit(:preview, :status, :online_at, :offline_at, :sort)
   end
 
   def set_banner

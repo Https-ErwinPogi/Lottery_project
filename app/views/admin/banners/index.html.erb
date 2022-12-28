@@ -5,6 +5,7 @@
       <thead class="table-light">
       <th>Id</th>
       <th>Preview</th>
+      <th>Sort</th>
       <th>Online at</th>
       <th>Offline at</th>
       <th>Status</th>
@@ -14,10 +15,11 @@
       <% @banners.each do |banner| %>
         <tr>
           <td><%= banner.id %></td>
-          <td><%= image_tag banner.preview.url, class: "rounded" if banner.preview? %></td>
-          <td><%= banner.status %></td>
+          <td><%= image_tag banner.preview.url, height: 100, width: 140, class: "rounded" if banner.preview? %></td>
+          <td><%= banner.sort %></td>
           <td><%= banner.online_at %></td>
           <td><%= banner.offline_at %></td>
+          <td><%= banner.status %></td>
           <td  class="p-1"><%= link_to 'Edit', edit_admin_banner_path(banner), class: "btn btn-outline-success" %></td>
           <td class="p-1"><%= button_to 'Delete', admin_banner_path(banner), onclick: "return confirm('Are you sure you want to end?')", method: :delete, class: "btn btn-outline-danger" %></td>
         </tr>

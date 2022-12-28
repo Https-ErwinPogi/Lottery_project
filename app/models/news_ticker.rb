@@ -1,8 +1,8 @@
 class NewsTicker < ApplicationRecord
-  validates :content, presence: true
+  validates_presence_of :content, :sort, :status
   belongs_to :admin, class_name: "User"
-
   default_scope { where(deleted_at: nil) }
+  default_scope { order(:sort) }
 
   def destroy
     update(deleted_at: Time.current)

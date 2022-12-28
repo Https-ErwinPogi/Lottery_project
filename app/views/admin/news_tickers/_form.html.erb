@@ -1,20 +1,44 @@
 <%= form_with model: news_ticker, url: path, data: { turbo: false } do |form| %>
-  <div class="container mt-5">
-    <div class="card">
-      <div class="card-body">
-        <%= form.label :content %>
-        <%= form.text_field :content, class: "form-control", placeholder: "Enter Content" %>
-        <p class="mt-3">Set status:</p>
-        <% Item.statuses.keys.each do |status| %>
+  <div class="card">
+    <div class="card-body">
+      <% invalid = @news_ticker.errors.include?(:content) %>
+      <%= form.label :content %>
+      <%= form.text_field :content, class: "form-control #{'is-invalid' if invalid}", placeholder: "Enter Content" %>
+      <% if invalid %>
+        <div class="invalid-feedback d-block">
+          <% @news_ticker.errors.full_messages_for(:content).each do |error_message| %>
+            <%= error_message %>.
+          <% end %>
+        </div>
+      <% end %>
+      <% invalid = @news_ticker.errors.include?(:sort) %>
+      <%= form.label :sort %>
+      <%= form.text_field :sort, class: "form-control #{'is-invalid' if invalid}", placeholder: "Enter Sort Number" %>
+      <% if invalid %>
+        <div class="invalid-feedback d-block">
+          <% @news_ticker.errors.full_messages_for(:sort).each do |error_message| %>
+            <%= error_message %>.
+          <% end %>
+        </div>
+      <% end %>
+      <% invalid = @news_ticker.errors.include?(:status) %>
+      <p class="mt-3">Set status:</p>
+      <% NewsTicker.statuses.keys.each do |status| %>
         <span style="margin-right: 10px">
-          <%= form.radio_button :status, status %>
+          <%= form.radio_button :status, status, class: "form-check-input #{'is-invalid' if invalid}" %>
           <%= form.label status.to_sym %>
         </span>
-        <% end %>
-        <div class="text-end mt-3">
-          <%= form.submit class: "btn btn-success " %>
-          <%= link_to 'Cancel', admin_news_tickers_path, class: "btn btn-outline-secondary" %>
+      <% end %>
+      <% if invalid %>
+        <div class="invalid-feedback d-block">
+          <% @news_ticker.errors.full_messages_for(:status).each do |error_message| %>
+            <%= error_message %>.
+          <% end %>
         </div>
+      <% end %>
+      <div class="text-end mt-3">
+        <%= form.submit class: "btn btn-success " %>
+        <%= link_to 'Cancel', admin_news_tickers_path, class: "btn btn-outline-secondary" %>
       </div>
     </div>
   </div>

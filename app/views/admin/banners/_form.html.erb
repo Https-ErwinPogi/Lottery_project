@@ -1,35 +1,78 @@
 <%= form_with model: banner, url: path, data: { turbo: false } do |form| %>
-  <div class="container mt-5">
-    <div class="card">
-      <div class="card-body">
-        <%= form.label :Preview %>
-        <%= form.file_field :preview, class: "form-control" %>
-        <ul class="nav nav-pills nav-justified mt-3 mb-3 text-start gap-2">
-          <li class="nav-item text-start">
-            <div class="mb-3">
-              <%= form.label :online_at %>
-              <%= form.datetime_field :online_at, class: "form-control" %>
+  <div class="card">
+    <div class="card-body">
+      <div class="mb-3">
+        <% invalid = @banner.errors.include?(:preview) %>
+        <%= form.label :preview %>
+        <%= form.file_field :preview, class: "form-control #{'is-invalid' if invalid}" %>
+        <% if invalid %>
+          <div class="invalid-feedback d-block">
+            <% @banner.errors.full_messages_for(:preview).each do |error_message| %>
+              <%= error_message %>.
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="mb-3">
+        <% invalid = @banner.errors.include?(:sort) %>
+        <%= form.label :sort %>
+        <%= form.number_field :sort, class: "form-control #{'is-invalid' if invalid}" %>
+        <% if invalid %>
+          <div class="invalid-feedback d-block">
+            <% @banner.errors.full_messages_for(:sort).each do |error_message| %>
+              <%= error_message %>.
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <ul class="nav nav-pills nav-justified mt-3 mb-3 text-start gap-2">
+        <li class="nav-item text-start">
+          <% invalid = @banner.errors.include?(:online_at) %>
+          <%= form.label :online_at %>
+          <%= form.datetime_field :online_at, class: "form-control #{'is-invalid' if invalid}" %>
+          <% if invalid %>
+            <div class="invalid-feedback d-block">
+              <% @banner.errors.full_messages_for(:online_at).each do |error_message| %>
+                <%= error_message %>.
+              <% end %>
             </div>
+          <% end %>
+        </li>
+        <li class="nav-item text-start">
+          <div class="mb-3">
+            <% invalid = @banner.errors.include?(:offline_at) %>
+            <%= form.label :offline_at %>
+            <%= form.datetime_field :offline_at, class: "form-control #{'is-invalid' if invalid}" %>
+            <% if invalid %>
+              <div class="invalid-feedback d-block">
+                <% @banner.errors.full_messages_for(:offline_at).each do |error_message| %>
+                  <%= error_message %>.
+                <% end %>
+              </div>
+            <% end %>
+          </div>
+        </li>
+      </ul>
 
-          </li>
-          <li class="nav-item text-start">
-            <div class="mb-3">
-              <%= form.label :offline_at %>
-              <%= form.datetime_field :offline_at, class: "form-control" %>
-            </div>
-          </li>
-        </ul>
-        <p class="">Set status:</p>
-        <% Item.statuses.keys.each do |status| %>
+      <% invalid = @banner.errors.include?(:status) %>
+      <p class="">Set status:</p>
+      <% Banner.statuses.keys.each do |status| %>
         <span style="margin-right: 10px">
-          <%= form.radio_button :status, status %>
+          <%= form.radio_button :status, status, class: "form-check-input #{'is-invalid' if invalid}" %>
           <%= form.label status.to_sym %>
         </span>
-        <% end %>
-        <div class="text-end mt-3">
-          <%= form.submit class: "btn btn-success " %>
-          <%= link_to 'Cancel', admin_banners_path, class: "btn btn-outline-secondary" %>
+      <% end %>
+      <% if invalid %>
+        <div class="invalid-feedback d-block">
+          <% @banner.errors.full_messages_for(:status).each do |error_message| %>
+            <%= error_message %>.
+          <% end %>
         </div>
+      <% end %>
+
+      <div class="text-end mt-3">
+        <%= form.submit class: "btn btn-success " %>
+        <%= link_to 'Cancel', admin_banners_path, class: "btn btn-outline-secondary" %>
       </div>
     </div>
   </div>
