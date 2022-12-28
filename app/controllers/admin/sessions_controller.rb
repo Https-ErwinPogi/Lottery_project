@@ -10,9 +10,15 @@ class Admin::SessionsController < Devise::SessionsController
   # end
 
   # POST /resource/sign_in
-  # def create
-  #   super
-  # end
+  def create
+    user_admin = User.find_for_authentication(email: params[:admin_user][:email])
+    if user_admin&.client? && user_admin&.valid_password?(params[:admin_user][:password])
+      flash[:alert] = "You don't have permission"
+      redirect_to action: :new
+    else
+      super
+    end
+  end
 
   # DELETE /resource/sign_out
   # def destroy
