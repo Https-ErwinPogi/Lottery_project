@@ -2,8 +2,10 @@ class Winner < ApplicationRecord
   belongs_to :user
   belongs_to :item
   belongs_to :bet
-  belongs_to :address
+  belongs_to :address, optional: true
   belongs_to :admin, class_name: "User", optional: true
+  default_scope { order("created_at DESC") }
+  mount_uploader :image, ImageUploader
 
   include AASM
 
