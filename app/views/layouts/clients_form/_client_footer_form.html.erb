@@ -1,11 +1,11 @@
 <footer class="py-3 fixed-bottom bg-dark">
   <div class="container text-center">
     <ul class="nav row-cols-5 border-bottom pb-3 mb-3">
-      <li class="nav-item"><%= link_to 'Share', clients_shares_path, class: "#{active_navbar "active_navbar", clients_shares_path} nav-link px-2 text-white" %></li>
-      <li class="nav-item"><%= link_to 'Invite', clients_invites_path, class: "#{active_navbar "active_navbar", clients_invites_path} nav-link px-2 text-white" %></li>
-      <li class="nav-item"><%= link_to 'Lottery', clients_lotteries_path, class: "#{active_navbar "active_navbar", clients_lotteries_path} nav-link px-2 text-white" %></li>
-      <li class="nav-item"><%= link_to 'Shop', clients_shops_path, class: "#{active_navbar "active_navbar", clients_shops_path} nav-link px-2 text-white" %></li>
-      <li class="nav-item"><%= link_to 'Me', clients_profiles_path, class: "#{active_navbar "active_navbar", clients_profiles_path} nav-link px-2 text-white" %></li>
+      <li class="nav-item"><%= link_to t("share"), clients_shares_path, class: "#{active_navbar "active_navbar", clients_shares_path} nav-link px-2 text-white" %></li>
+      <li class="nav-item"><%= link_to t("invite"), clients_invites_path, class: "#{active_navbar "active_navbar", clients_invites_path} nav-link px-2 text-white" %></li>
+      <li class="nav-item"><%= link_to t("lottery"), clients_lotteries_path, class: "#{active_navbar "active_navbar", clients_lotteries_path} nav-link px-2 text-white" %></li>
+      <li class="nav-item"><%= link_to t("shop"), clients_shops_path, class: "#{active_navbar "active_navbar", clients_shops_path} nav-link px-2 text-white" %></li>
+      <li class="nav-item"><%= link_to t("me"), clients_profiles_path(history: 'order'), class: "#{active_navbar "active_navbar", clients_profiles_path(history: 'order')} nav-link px-2 text-white" %></li>
     </ul>
     <p class="text-center text-muted">&copy; 2022 Company, Inc</p>
   </div>

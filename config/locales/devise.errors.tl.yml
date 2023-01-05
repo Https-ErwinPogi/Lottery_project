@@ -1,0 +1,14 @@
+tl:
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              blank: "hindi pwedeng blangko"
+              taken: "ay mayroon na"
+            password:
+              blank: "hindi pwedeng blangko"
+              too_short: "ay masyadong maiksi (Ang minimum ay anim na letra)"
+            password_confirmation:
+              confirmation: "ay hindi tumutugma sa Password"
