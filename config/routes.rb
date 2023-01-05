@@ -45,7 +45,7 @@ Rails.application.routes.draw do
   end
 
   constraints(ClientDomainConstraint.new) do
-    devise_for :users, controllers: { sessions: 'clients/sessions', registrations: 'clients/registrations' }
+    devise_for :users, controllers: { sessions: 'clients/sessions', registrations: 'clients/registrations', omniauth_callbacks: 'clients/omniauth_callbacks' }
     namespace :clients, path: '' do
       root to: "home#index"
       resources :profiles

@@ -38,6 +38,12 @@ gem 'active_model_serializers'
 gem "rqrcode", "~> 2.0"
 gem 'aasm'
 
+gem 'omniauth'
+gem 'omniauth-facebook'
+gem "omniauth-rails_csrf_protection"
+gem 'omniauth-google-oauth2'
+gem 'activerecord-session_store'
+
 # Use Redis adapter to run Action Cable in production
 # gem "redis", "~> 4.0"
 

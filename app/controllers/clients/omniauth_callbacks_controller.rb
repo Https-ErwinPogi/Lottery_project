@@ -1,6 +1,36 @@
 # frozen_string_literal: true
 
 class Clients::OmniauthCallbacksController < Devise::OmniauthCallbacksController
+  def facebook
+    @user = User.create_from_provider_data(request.env['omniauth.auth'])
+    if @user.persisted?
+      sign_in :user, @user
+      redirect_to clients_root_path
+      set_flash_message(:notice, :success, kind: 'Facebook') if is_navigational_format?
+    else
+      flash[:alert] = @user.errors.full_messages.join(', ')
+      redirect_to new_user_registration_url
+    end
+    # render json: @user
+  end
+
+  def google_oauth2
+    @user = User.create_from_provider_data(request.env['omniauth.auth'])
+    if @user.persisted?
+      sign_in :user, @user
+      redirect_to clients_root_path
+      set_flash_message(:notice, :success, kind: 'Google') if is_navigational_format?
+    else
+      flash[:alert] = @user.errors.full_messages.join(', ')
+      redirect_to new_user_registration_url
+    end
+  end
+
+  def failure
+    flash[:alert] = @user.errors.full_messages.join(', ')
+    redirect_to new_user_registration_url
+  end
+
   # You should configure your model like this:
   # devise :omniauthable, omniauth_providers: [:twitter]
 
