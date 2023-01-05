@@ -35,6 +35,9 @@
 /public/uploads/tmp
 /public/uploads/user
 /public/uploads/item
+/public/uploads/offer
+/public/uploads/winner
+/public/uploads/banner
 /app/assets/images/
 /node_modules
 

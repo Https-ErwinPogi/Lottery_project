@@ -16,22 +16,22 @@ class Clients::LotteriesController < ApplicationController
 
   def create
     count = params[:bet][:coins].to_i
-      if current_user.coins >= count
-        count = params[:bet][:coins].to_i
-        params[:bet][:coins] = 1
-        params[:bet][:item_id] = @item.id
-        count.times {
-          @bet = Bet.new(bet_params)
-          @bet.user = current_user
-          @bet.batch_count = @item.batch_count
-          @bet.save!
-        }
-        flash[:notice] = "Successfully Bet!"
-        redirect_to clients_lottery_path(@item)
-      else
-        flash[:alert] = "You don't have enough coins to place your selected bet. Current coin/s #{current_user.coins}"
-        redirect_to clients_shops_path
-      end
+    if current_user.coins >= count
+      count = params[:bet][:coins].to_i
+      params[:bet][:coins] = 1
+      params[:bet][:item_id] = @item.id
+      count.times {
+        @bet = Bet.new(bet_params)
+        @bet.user = current_user
+        @bet.batch_count = @item.batch_count
+        @bet.save!
+      }
+      flash[:notice] = "Successfully Bet!"
+      redirect_to clients_lottery_path(@item)
+    else
+      flash[:alert] = "You don't have enough coins to place your selected bet. Current coin/s #{current_user.coins}"
+      redirect_to clients_shops_path
+    end
   end
 
   private

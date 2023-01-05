@@ -6,7 +6,7 @@
     <% if invalid %>
       <div class="invalid-feedback d-block">
         <% @category.errors.full_messages_for(:name).each do |error_message| %>
-         Category <%= error_message %>.
+          Category <%= error_message %>.
         <% end %>
       </div>
     <% end %>

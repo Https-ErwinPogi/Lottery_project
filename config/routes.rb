@@ -14,7 +14,7 @@ Rails.application.routes.draw do
         resources :bonuses, path: 'orders/bonus', only: [:new, :create]
         resources :member_levels, path: 'orders/member-level', only: [:new, :create]
       end
-      resources :items do
+      resources :items, except: :show do
         put :start
         put :pause
         put :end
@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       resources :bets do
         put :cancel
       end
-      resources :categories
+      resources :categories, except: :show
       resources :winners do
         put :submit
         put :pay
@@ -32,15 +32,15 @@ Rails.application.routes.draw do
         put :publish
         put :remove_publish
       end
-      resources :offers
+      resources :offers, except: :show
       resources :orders do
         put :pay
         put :cancel
       end
-      resources :invite_lists
-      resources :news_tickers
-      resources :banners
-      resources :member_level_lists
+      resources :invite_lists, only: :index
+      resources :news_tickers, except: :show
+      resources :banners, except: :show
+      resources :member_level_lists, except: :show
     end
   end
 
@@ -48,13 +48,11 @@ Rails.application.routes.draw do
     devise_for :users, controllers: { sessions: 'clients/sessions', registrations: 'clients/registrations', omniauth_callbacks: 'clients/omniauth_callbacks' }
     namespace :clients, path: '' do
       root to: "home#index"
-      resources :profiles
-      resources :addresses
-      resources :invites
+      resources :profiles, only: :index
+      resources :addresses, except: :show
+      resources :invites, only: :index
       resources :lotteries
-      resources :shops do
-        post :order
-      end
+      resources :shops
       resources :claims
       resources :shares
       scope :orders, path: 'orders', as: 'orders' do

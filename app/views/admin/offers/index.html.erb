@@ -6,23 +6,20 @@
         <ul class="nav nav-pills nav-justified mt-3 mb-3 text-start">
           <li class="nav-item text-start mx-2">
             <%= label_tag :genre %>
-            <%= select_tag :genre, options_for_select(Offer.genres.keys.map{ |key| [key.humanize, key] }, params[:genre]), { prompt: 'Choose Genre', class: "form-control form-select" } %>
+            <%= select_tag :genre, options_for_select(Offer.genres.keys.map { |key| [key.humanize, key] }, params[:genre]), { prompt: 'Choose Genre', class: "form-control form-select" } %>
           </li>
           <li class="nav-item text-start mx-2">
             <div class="mb-3">
               <%= label_tag :status %>
-              <%= select_tag :status, options_for_select(Offer.statuses.keys.map{ |key| [key.humanize, key] }, params[:status]), { prompt: 'Choose Status', class: "form-control form-select" } %>
+              <%= select_tag :status, options_for_select(Offer.statuses.keys.map { |key| [key.humanize, key] }, params[:status]), { prompt: 'Choose Status', class: "form-control form-select" } %>
             </div>
             <div class="float-end">
               <%= link_to 'Reset', admin_offers_path, class: "btn btn-secondary" %>
               <%= submit_tag :Search, class: "btn btn-info" %>
             </div>
           </li>
-
-
         </ul>
       <% end %>
-
       <table class="table table-hover">
         <thead class="table-light">
         <th>Image</th>
@@ -58,5 +55,4 @@
     </div>
   </div>
   <%= link_to 'New', new_admin_offer_path, class: "btn btn-dark px-4 mt-2" %>
-
 </div>

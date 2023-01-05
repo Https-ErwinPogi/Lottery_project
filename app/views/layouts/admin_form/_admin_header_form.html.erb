@@ -2,21 +2,19 @@
   <a class="navbar-brand col-md-3 col-lg-2 me-0 px-3 fs-6" href="#">Company name</a>
   <ul class="nav nav-pills mt-2">
     <li class="nav-fill dropdown">
-      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Messages</a>
+      <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Language</a>
       <div class="dropdown-menu">
-        <a href="#" class="dropdown-item">Inbox</a>
-        <a href="#" class="dropdown-item">Drafts</a>
-        <a href="#" class="dropdown-item">Sent Items</a>
+        <a href="#" class="dropdown-item">English</a>
         <div class="dropdown-divider"></div>
-        <a href="#" class="dropdown-item">Trash</a>
+        <a href="#" class="dropdown-item">Tagalog</a>
       </div>
     </li>
     <li class="nav-item dropdown ms-auto">
       <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><%= current_admin_user.email if user_signed_in? %></a>
       <div class="dropdown-menu dropdown-menu-end">
-        <a href="#" class="dropdown-item">Settings</a>
-        <div class="dropdown-divider"></div>
         <% if admin_user_signed_in? %>
+          <a href="#" class="dropdown-item">Settings</a>
+          <div class="dropdown-divider"></div>
           <%= button_to "Log Out", destroy_admin_user_session_path, { onclick: "return confirm('Are you sure you want to delete?')", method: :delete, class: "dropdown-item" } %>
         <% else %>
           <%= link_to "Login", new_admin_user_session_path, class: "dropdown-item" %>

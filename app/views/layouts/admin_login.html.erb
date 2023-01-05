@@ -10,6 +10,8 @@
     <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   </head>
   <body >
+  <span class="notice text-center"><%= notice %></span>
+  <span class="alert text-center text-danger"><%= alert %></span>
     <%= yield %>
   </body>
 </html>

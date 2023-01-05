@@ -21,7 +21,7 @@ class Admin::WinnersController < AdminController
                   Winner.human_attribute_name(:address),
                   Winner.human_attribute_name(:created_at)]
           @winners.each do |winner|
-            csv << [winner.bet.serial_number ,
+            csv << [winner.bet.serial_number,
                     winner.item.name,
                     winner.user.email,
                     winner.state,

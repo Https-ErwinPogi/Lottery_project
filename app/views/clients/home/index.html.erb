@@ -1,49 +1,49 @@
 <main>
   <%= render 'clients/shared/banner_image' %>
   <section style="padding-top: 10px; height: 100vh">
-      <div class="overflow-hidden">
-        <div class="container">
-          <%= button_to 'Button', '', class: "btn btn-primary w-100 mb-3" %>
-          <h4 class="badge bg-warning p-2 text-black">Winners Feedback</h4>
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-6 g-3">
-            <% @winners.each do |winner| %>
-              <div class="col">
-                <div class="card shadow-sm">
-                  <div class="card-body bg-dark">
-                    <%= image_tag winner.image.url, style: "height: 100%; width: 100%" if winner.image? %>
-                  </div>
-                </div>
-              </div>
-            <% end %>
+    <div class="overflow-hidden">
+      <div class="container">
+        <%= button_to 'Button', '', class: "btn btn-primary w-100 mb-3" %>
+        <h4 class="badge bg-warning p-2 text-black">Winners Feedback</h4>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-6 g-3">
+          <% @winners.each do |winner| %>
             <div class="col">
-              <div class="card shadow-sm bg-dark w-100 h-100 align-middle">
-                <div class="card-body text-center">
-                  <%= link_to 'more...', clients_shares_path %>
+              <div class="card shadow-sm">
+                <div class="card-body bg-dark">
+                  <%= image_tag winner.image.url, style: "height: 100%; width: 100%" if winner.image? %>
                 </div>
               </div>
             </div>
+          <% end %>
+          <div class="col">
+            <div class="card shadow-sm bg-dark w-100 h-100 align-middle">
+              <div class="card-body text-center">
+                <%= link_to 'more...', clients_shares_path %>
+              </div>
+            </div>
           </div>
-          <h4 class="badge bg-warning p-2 text-black mt-3">Coming soon</h4>
-          <div class="row row-cols-1 row-cols-sm-2 row-cols-md-6 g-3">
-            <% @items.each do |item| %>
-              <div class="col">
-                <div class="card shadow-sm bg-dark">
-                  <div class="card-body">
-                    <%= image_tag item.image.url, style: "height: 100%; width: 100%" if item.image? %>
-                  </div>
+        </div>
+        <h4 class="badge bg-warning p-2 text-black mt-5">Coming soon</h4>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-6 g-3">
+          <% @items.each do |item| %>
+            <div class="col">
+              <div class="card shadow-sm bg-dark">
+                <div class="card-body">
+                  <%= image_tag item.image.url, style: "height: 100%; width: 100%" if item.image? %>
                 </div>
               </div>
+            </div>
           <% end %>
-            <div class="col">
-              <div class="card shadow-sm bg-dark w-100 h-100 align-middle">
-                <div class="card-body text-center">
-                  <%= link_to 'more...', clients_lotteries_path %>
-                </div>
+          <div class="col">
+            <div class="card shadow-sm bg-dark w-100 h-100 align-middle">
+              <div class="card-body text-center">
+                <%= link_to 'more...', clients_lotteries_path %>
               </div>
             </div>
           </div>
         </div>
       </div>
+    </div>
     </div>
   </section>
 </main>

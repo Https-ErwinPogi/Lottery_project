@@ -7,7 +7,7 @@
       <div>Item Name: <%= @winner.item.name %></div>
       <div>Date Created: <%= @winner.created_at %></div>
       <div class="mt-3">
-        <%= form_for @winner, url: clients_claim_path(@winner), method: :patch, data: { turbo: false} do |f| %>
+        <%= form_for @winner, url: clients_claim_path(@winner), method: :patch, data: { turbo: false } do |f| %>
           <b>Select Address:</b>
           <% @user.addresses.each do |address| %>
             <div class="row mt-2">

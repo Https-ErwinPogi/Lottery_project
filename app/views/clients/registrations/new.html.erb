@@ -17,7 +17,7 @@
         <% if cookies[:promoter] %>
           <div class="mb-3">
             <%= f.label :promoter, class: "form-label" %>
-            <%= email_field_tag :parent, cookies[:promoter], autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Promoter Name",  readonly: :true %>
+            <%= email_field_tag :parent, cookies[:promoter], autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Promoter Name", readonly: :true %>
           </div>
         <% end %>
         <div class="mb-3">
@@ -43,7 +43,7 @@
           <%= f.submit "Sign up", class: "btn btn-primary btn-block mb-3 w-100" %>
         </div>
       <% end %>
-        <p class="text-center mt-3 mx-3 mb-0 text-white">or sign up with: </p>
+      <p class="text-center mt-3 mx-3 mb-0 text-white">or sign up with: </p>
       <div class="d-flex justify-content-center mx-1">
         <%= button_to "", user_facebook_omniauth_authorize_path, class: "btn btn-link btn-floating bi-facebook fs-3 text-white" %>
         <%= button_to "", user_google_oauth2_omniauth_authorize_path, class: "btn btn-link btn-floating bi-google fs-3 text-white" %>

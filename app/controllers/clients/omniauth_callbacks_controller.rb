@@ -11,7 +11,6 @@ class Clients::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:alert] = @user.errors.full_messages.join(', ')
       redirect_to new_user_registration_url
     end
-    # render json: @user
   end
 
   def google_oauth2
